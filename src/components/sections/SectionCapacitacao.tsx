@@ -2,6 +2,7 @@
 
 import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
+import { sectionContent } from '@/data/sections'
 
 const cursos = [
   { titulo: 'Gestão de Políticas Públicas', carga: '40h', modalidade: 'EAD', inscritos: 234 },
@@ -16,8 +17,8 @@ export default function SectionCapacitacao() {
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       <SectionHeader
-        title="Capacitação"
-        description="Cursos e trilhas de aprendizagem para fortalecer a gestão municipal e o desenvolvimento local."
+        title={sectionContent.capacitacao.title}
+        description={sectionContent.capacitacao.description}
       />
 
       {/* Course list */}

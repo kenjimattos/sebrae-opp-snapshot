@@ -4,11 +4,12 @@ import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
 import TitleSubtitle from '@/components/TitleSubtitle'
 import ResourcesCard from '@/components/resources/ResourcesCard'
+import { sectionContent } from '@/data/sections'
 
 export default function SectionRecursos() {
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
-      <SectionHeader title="Acesso a recursos" />
+      <SectionHeader title={sectionContent.recursos.title} />
 
       {/* Emendas parlamentares */}
       <div className="flex flex-col gap-[var(--spacing-md)]">

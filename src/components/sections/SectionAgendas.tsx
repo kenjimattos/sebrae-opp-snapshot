@@ -4,6 +4,7 @@ import type { Agenda, StatusType } from '@/types/indicadores'
 import SectionContainer from '@/components/ui/SectionContainer'
 import AgendaStats from '@/components/agenda/AgendaStats'
 import AgendaCard from '@/components/agenda/AgendaCard'
+import { sectionContent } from '@/data/sections'
 
 interface SectionAgendasProps {
   agendas: Agenda[]
@@ -22,11 +23,15 @@ export default function SectionAgendas({ agendas }: SectionAgendasProps) {
   return (
     <SectionContainer className="flex flex-col items-center gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       {/* Title */}
-      <h2 className="font-bold text-[length:var(--font-size-h1)] leading-none text-[color:var(--semantic-text-primary)] text-center max-w-[860px]">
-        Veja como está o{' '}
-        <span className="text-[color:var(--semantic-info-text-info)]">ambiente de negócio</span>
-        {' '}do seu município
-      </h2>
+      <h2
+        className="font-bold text-[length:var(--font-size-h1)] leading-none text-[color:var(--semantic-text-primary)] text-center max-w-[860px]"
+        dangerouslySetInnerHTML={{
+          __html: sectionContent.agendas.title.replace(
+            /<highlight>(.*?)<\/highlight>/,
+            '<span style="color: var(--semantic-info-text-info)">$1</span>',
+          ),
+        }}
+      />
 
       {/* Stats bar */}
       <AgendaStats total={total} counts={counts} />

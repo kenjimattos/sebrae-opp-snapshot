@@ -5,6 +5,7 @@ import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
 import EconomicsCard from '@/components/economics/EconomicsCard'
 import EconomicsAnalysis from '@/components/economics/EconomicsAnalysis'
+import { sectionContent } from '@/data/sections'
 
 interface SectionBaseEconomicaProps {
   dados: BaseEconomicaItem[]
@@ -14,8 +15,8 @@ export default function SectionBaseEconomica({ dados }: SectionBaseEconomicaProp
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       <SectionHeader
-        title="Base econômica"
-        description="Principais indicadores econômicos do município, incluindo PIB, arrecadação e mercado de trabalho."
+        title={sectionContent.baseEconomica.title}
+        description={sectionContent.baseEconomica.description}
       />
 
       <div className="grid grid-cols-5 gap-[var(--spacing-sm)] w-full">

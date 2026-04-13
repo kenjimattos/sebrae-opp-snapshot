@@ -2,6 +2,7 @@
 
 import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
+import { sectionContent } from '@/data/sections'
 
 const casos = [
   {
@@ -34,8 +35,8 @@ export default function SectionCasosSucesso() {
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       <SectionHeader
-        title="Casos de sucesso"
-        description="Iniciativas que transformaram municípios paraibanos e podem servir de inspiração."
+        title={sectionContent.casosSucesso.title}
+        description={sectionContent.casosSucesso.description}
       />
 
       {/* Horizontal scroll */}

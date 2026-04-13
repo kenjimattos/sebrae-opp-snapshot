@@ -6,6 +6,7 @@ import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
 import ParaibaMap from '@/components/ParaibaMap'
 import { useMunicipio } from '@/hooks/useMunicipio'
+import { sectionContent } from '@/data/sections'
 
 interface SectionPanoramaProps {
   panorama: Panorama
@@ -18,8 +19,8 @@ export default function SectionPanorama({ panorama, municipio }: SectionPanorama
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       <SectionHeader
-        title="Panorama do município"
-        description="Visão geral dos indicadores socioeconômicos e ranking comparativo entre municípios da Paraíba."
+        title={sectionContent.panorama.title}
+        description={sectionContent.panorama.description}
       />
 
       <div className="flex gap-[var(--spacing-sm)] w-full">
