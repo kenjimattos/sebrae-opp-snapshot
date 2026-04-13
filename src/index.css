@@ -1,111 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* ============ TYPOGRAPHY ============ */
+  --font: 'Inter', sans-serif;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Display */
+  --font-size-display-large: 96px;
+  --font-size-display: 56px;
+  --font-size-display-small: 32px;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Headings */
+  --font-size-h1: 48px;
+  --font-size-h2: 36px;
+  --font-size-h3: 24px;
+  --font-size-h4: 16px;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* Body */
+  --font-size-body-lg: 24px;
+  --font-size-body: 16px;
+  --font-size-body-sm: 12px;
+
+  /* Buttons */
+  --font-size-button-lg: 40px;
+  --font-size-button: 24px;
+  --font-size-button-sm: 16px;
+
+  /* ============ SPACING ============ */
+  --spacing-2xs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+  --spacing-3xl: 96px;
+  --spacing-margin: 120px;
+
+  /* ============ RADIUS ============ */
+  --radius-sm: 12px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --radius-full: 96px;
+
+  /* ============ COLORS — PRIMITIVES ============ */
+  --primitives-white: #ffffff;
+  --primitives-black: #000000;
+
+  --primitives-gray-100: #f3f3f3;
+  --primitives-gray-200: #e5e5e5;
+  --primitives-gray-300: #d8d8d8;
+  --primitives-gray-400: #cccccc;
+  --primitives-gray-500: #a7a7a7;
+  --primitives-gray-600: #656565;
+  --primitives-gray-700: #4d4d4d;
+  --primitives-gray-800: #333333;
+  --primitives-gray-900: #1a1a1a;
+
+  --primitives-blue-100: #d3e1fe;
+  --primitives-blue-200: #7ea5f8;
+  --primitives-blue-500: #2563eb;
+  --primitives-blue-800: #0037b3;
+  --primitives-blue-900: #002987;
+
+  --primitives-green-100: #ddf6da;
+  --primitives-green-200: #a4e79b;
+  --primitives-green-500: #43c132;
+  --primitives-green-800: #308b25;
+  --primitives-green-900: #1e5617;
+
+  --primitives-yellow-100: #fff5d5;
+  --primitives-yellow-200: #ffde81;
+  --primitives-yellow-500: #efb008;
+  --primitives-yellow-800: #976400;
+  --primitives-yellow-900: #724b00;
+
+  --primitives-red-100: #ffebeb;
+  --primitives-red-200: #fc9595;
+  --primitives-red-500: #d83232;
+  --primitives-red-800: #b01212;
+  --primitives-red-900: #8c0000;
+
+  /* ============ COLORS — SEMANTIC (LIGHT MODE) ============ */
+  --semantic-main: var(--primitives-black);
+
+  --semantic-background-primary: var(--primitives-gray-100);
+  --semantic-surface-primary: var(--primitives-white);
+  --semantic-surface-secondary: var(--primitives-gray-200);
+  --semantic-surface-tertiary: var(--primitives-gray-500);
+
+  --semantic-text-primary: var(--primitives-black);
+  --semantic-text-inactive: var(--primitives-gray-600);
+  --semantic-info-text-info: var(--primitives-blue-500);
+
+  /* Buttons */
+  --semantic-button-primary: var(--primitives-black);
+  --semantic-button-label-primary: var(--primitives-white);
+  --semantic-button-secondary: var(--primitives-white);
+  --semantic-button-label-secondary: var(--primitives-black);
+  --semantic-button-tertiary: var(--primitives-gray-200);
+  --semantic-button-label-tertiary: var(--primitives-black);
+
+  /* Status */
+  --semantic-success: var(--primitives-green-900);
+  --semantic-success-surface: var(--primitives-green-100);
+  --semantic-warning: var(--primitives-yellow-800);
+  --semantic-warning-surface: var(--primitives-yellow-100);
+  --semantic-alert: var(--primitives-red-800);
+  --semantic-alert-surface: var(--primitives-red-100);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ============ DARK MODE ============ */
+.dark {
+  --primitives-gray-100: #e5e5e5;
+  --primitives-gray-200: #cccccc;
+  --primitives-gray-300: #b3b3b3;
+  --primitives-gray-400: #a3a3a3;
+  --primitives-gray-500: #808080;
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --primitives-green-100: #e8fce4;
+  --primitives-green-200: #a5e1bf;
+  --primitives-green-500: #419e6a;
+  --primitives-green-800: #00632b;
+  --primitives-green-900: #00401c;
+
+  --semantic-main: var(--primitives-white);
+  --semantic-background-primary: var(--primitives-gray-800);
+  --semantic-surface-primary: var(--primitives-gray-900);
+  --semantic-surface-secondary: var(--primitives-black);
+  --semantic-surface-tertiary: var(--primitives-gray-800);
+
+  --semantic-text-primary: var(--primitives-white);
+  --semantic-text-inactive: var(--primitives-gray-400);
+
+  --semantic-button-primary: var(--primitives-white);
+  --semantic-button-label-primary: var(--primitives-black);
+  --semantic-button-secondary: var(--primitives-black);
+  --semantic-button-label-secondary: var(--primitives-white);
+  --semantic-button-tertiary: var(--primitives-gray-600);
+  --semantic-button-label-tertiary: var(--primitives-white);
+
+  --semantic-success: var(--primitives-green-200);
+  --semantic-success-surface: var(--primitives-green-800);
+  --semantic-warning: var(--primitives-yellow-200);
+  --semantic-warning-surface: var(--primitives-yellow-900);
+  --semantic-info-text-info: var(--primitives-blue-200);
+
+  --semantic-alert: var(--primitives-red-100);
+  --semantic-alert-surface: var(--primitives-red-800);
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+/* ============ BASE STYLES ============ */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-family: var(--font);
+  font-size: var(--font-size-body);
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
