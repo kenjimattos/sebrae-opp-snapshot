@@ -2,57 +2,49 @@
   "municipio": "Campina Grande",
   "agendas": [
     {
-      "nome": "Desenvolvimento Econômico",
+      "nome": "Governança multissetorial para o Desenvolvimento Local",
       "indicadores": [
-        { "label": "PIB per capita", "valor": "R$ 24.180", "variacao": "+2.8%", "status": "success" },
-        { "label": "Taxa de desemprego", "valor": "10.2%", "variacao": "-0.5%", "status": "warning" },
-        { "label": "Empresas ativas", "valor": "28.450", "variacao": "+4.1%", "status": "success" },
-        { "label": "Formalização", "valor": "55.8%", "variacao": "+1.7%", "status": "warning" }
+        { "label": "Índice CFA de Governança Municipal", "valor": "6,2", "status": "warning" },
+        { "label": "IDH-M", "valor": "0,720", "status": "success" },
+        { "label": "ISDEL", "valor": "0,48", "status": "alert" }
       ]
     },
     {
-      "nome": "Educação e Qualificação",
+      "nome": "Simplificação e digitalização de serviços públicos para os Pequenos Negócios",
       "indicadores": [
-        { "label": "IDEB Anos Finais", "valor": 4.5, "variacao": "+0.2", "status": "warning" },
-        { "label": "Taxa de alfabetização", "valor": "91.8%", "variacao": "+0.6%", "status": "success" },
-        { "label": "Matrículas ensino técnico", "valor": "8.920", "variacao": "+6.5%", "status": "success" },
-        { "label": "Evasão escolar", "valor": "4.2%", "variacao": "+0.5%", "status": "alert" }
+        { "label": "Tempo médio de abertura de empresa", "valor": "18h", "status": "success" },
+        { "label": "Tempo médio de viabilidade de empresa", "valor": "22 dias", "status": "warning" },
+        { "label": "Ranking Redesim", "valor": "Parcial", "status": "warning" },
+        { "label": "Tempo de licenciamento", "valor": "15 dias", "status": "warning" }
       ]
     },
     {
-      "nome": "Infraestrutura e Urbanismo",
+      "nome": "Inovação inclusiva e digitalização para Pequenos Negócios, em ELI",
       "indicadores": [
-        { "label": "Cobertura saneamento", "valor": "65.3%", "variacao": "+1.8%", "status": "warning" },
-        { "label": "Acesso à internet", "valor": "79.4%", "variacao": "+5.2%", "status": "success" },
-        { "label": "Pavimentação", "valor": "63.7%", "variacao": "+2.1%", "status": "warning" },
-        { "label": "Iluminação pública", "valor": "82.1%", "variacao": "+1.2%", "status": "success" }
+        { "label": "Trabalhadores nas ocupações de C&T", "valor": "1.420", "status": "success" },
+        { "label": "Trabalhadores nos setores da economia criativa, inovação e TIC", "valor": "3,2%", "status": "warning" }
       ]
     },
     {
-      "nome": "Saúde e Bem-Estar",
+      "nome": "Educação empreendedora",
       "indicadores": [
-        { "label": "Leitos por 1.000 hab.", "valor": 3.1, "variacao": "+0.1", "status": "success" },
-        { "label": "Cobertura ESF", "valor": "88.2%", "variacao": "+2.4%", "status": "success" },
-        { "label": "Mortalidade infantil", "valor": "12.8‰", "variacao": "-0.5‰", "status": "warning" },
-        { "label": "Vacinação", "valor": "81.3%", "variacao": "+1.2%", "status": "success" }
+        { "label": "Educação Empreendedora - ISDEL", "valor": "8 escolas", "status": "warning" },
+        { "label": "Trabalhadores formais com Ensino Médio Completo", "valor": "72%", "status": "success" },
+        { "label": "Trabalhadores formais com Ensino Superior Completo", "valor": "18%", "status": "alert" }
       ]
     },
     {
-      "nome": "Sustentabilidade Ambiental",
+      "nome": "Viabilização financeira e crédito orientado",
       "indicadores": [
-        { "label": "Coleta seletiva", "valor": "22.1%", "variacao": "+3.4%", "status": "alert" },
-        { "label": "Áreas verdes per capita", "valor": "8.3 m²", "variacao": "-0.5 m²", "status": "alert" },
-        { "label": "Consumo de água", "valor": "132 L/dia", "variacao": "-2.1%", "status": "success" },
-        { "label": "Emissões CO₂", "valor": "1.8 t/hab", "variacao": "-0.9%", "status": "success" }
+        { "label": "Taxa de crescimento do valor das Operações de Crédito", "valor": "-5%", "status": "alert" },
+        { "label": "Taxa de crescimento do valor dos Financiamentos - BACEN", "valor": "1%", "status": "warning" }
       ]
     },
     {
-      "nome": "Inovação e Tecnologia",
+      "nome": "Inclusão produtiva",
       "indicadores": [
-        { "label": "Startups ativas", "valor": 87, "variacao": "+15", "status": "success" },
-        { "label": "Patentes registradas", "valor": 34, "variacao": "+8", "status": "success" },
-        { "label": "Investimento P&D", "valor": "R$ 45M", "variacao": "+12.3%", "status": "success" },
-        { "label": "Parques tecnológicos", "valor": 2, "variacao": "0", "status": "warning" }
+        { "label": "Total de pequenos negócios abertos", "valor": "1.240", "status": "success" },
+        { "label": "Total de pequenos negócios extintos no período", "valor": "890", "status": "warning" }
       ]
     }
   ],
