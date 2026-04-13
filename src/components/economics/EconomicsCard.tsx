@@ -50,15 +50,17 @@ export default function EconomicsCard({ label, valor, variacao, icone, className
     >
       <div className="flex items-center gap-[var(--spacing-sm)] w-full">
         {icone && iconPaths[icone] && (
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="shrink-0 text-[var(--semantic-text-primary)]"
-          >
-            {iconPaths[icone]}
-          </svg>
+          <div className="shrink-0 size-[32px] rounded-full bg-[var(--semantic-surface-secondary)] flex items-center justify-center">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-[var(--semantic-text-primary)]"
+            >
+              {iconPaths[icone]}
+            </svg>
+          </div>
         )}
         <span className="font-normal text-[length:var(--font-size-h4)] leading-normal text-[color:var(--semantic-text-primary)] uppercase">
           {label}
