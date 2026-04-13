@@ -17,7 +17,7 @@ export default function EconomicsAnalysis({ analise = defaultAnalise, className 
       <h4 className="font-semibold text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
         Análise
       </h4>
-      <p className="font-normal text-[length:var(--font-size-body-lg)] leading-[25px] text-[color:var(--semantic-text-primary)]">
+      <p className="font-normal text-[length:var(--font-size-body)] leading-[25px] text-[color:var(--semantic-text-primary)]">
         {analise}
       </p>
     </div>
