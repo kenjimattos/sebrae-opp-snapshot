@@ -1,9 +1,11 @@
 // Figma: Section/Panorama (390:578)
-// Map + IDHM ranking — map will be added in Fase 8
+// Map + IDHM ranking
 
 import type { Panorama } from '@/types/indicadores'
 import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
+import ParaibaMap from '@/components/ParaibaMap'
+import { useMunicipio } from '@/hooks/useMunicipio'
 
 interface SectionPanoramaProps {
   panorama: Panorama
@@ -11,6 +13,8 @@ interface SectionPanoramaProps {
 }
 
 export default function SectionPanorama({ panorama, municipio }: SectionPanoramaProps) {
+  const { municipio: state, setMunicipio } = useMunicipio()
+
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
       <SectionHeader
@@ -19,11 +23,12 @@ export default function SectionPanorama({ panorama, municipio }: SectionPanorama
       />
 
       <div className="flex gap-[var(--spacing-sm)] w-full">
-        {/* Map placeholder — will be replaced in Fase 8 */}
-        <div className="flex-1 bg-[var(--semantic-surface-primary)] rounded-[var(--radius-md)] p-[var(--spacing-lg)] min-h-[400px] flex items-center justify-center">
-          <span className="text-[color:var(--semantic-text-inactive)] text-[length:var(--font-size-body)]">
-            Mapa da Paraíba (Fase 8)
-          </span>
+        {/* Map */}
+        <div className="flex-1 bg-[var(--semantic-surface-primary)] rounded-[var(--radius-md)] p-[var(--spacing-md)]">
+          <ParaibaMap
+            selectedId={state.id}
+            onSelect={setMunicipio}
+          />
         </div>
 
         {/* IDHM Ranking */}
