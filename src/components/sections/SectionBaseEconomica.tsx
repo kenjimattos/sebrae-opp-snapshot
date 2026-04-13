@@ -4,6 +4,7 @@ import type { BaseEconomicaItem } from '@/types/indicadores'
 import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
 import EconomicsCard from '@/components/economics/EconomicsCard'
+import EconomicsAnalysis from '@/components/economics/EconomicsAnalysis'
 
 interface SectionBaseEconomicaProps {
   dados: BaseEconomicaItem[]
@@ -27,6 +28,8 @@ export default function SectionBaseEconomica({ dados }: SectionBaseEconomicaProp
           />
         ))}
       </div>
+
+      <EconomicsAnalysis />
     </SectionContainer>
   )
 }
