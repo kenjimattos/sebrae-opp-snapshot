@@ -5,6 +5,10 @@ Todas as alterações relevantes do projeto são documentadas neste arquivo.
 ## [Unreleased]
 
 ### Added
+- Componentes primitivos do Figma: `SectionHeader`, `TitleSubtitle`, `Button`
+- Componentes Tailwind puros: `SectionContainer`, `Grid`
+- Estrutura de pastas espelhando grupos do Figma (`agenda/`, `economics/`, `risks/`, etc.)
+- Interfaces TypeScript para dados de indicadores municipais (`src/types/indicadores.ts`)
 - Design tokens (typography, spacing, radius, colors) em `src/index.css` extraídos das Figma Variables
 - Fonte Inter via Google Fonts
 - Path alias `@/` configurado em Vite e TypeScript
