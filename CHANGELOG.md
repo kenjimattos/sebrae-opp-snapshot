@@ -24,6 +24,12 @@ Todas as alterações relevantes do projeto são documentadas neste arquivo.
 - Logo Sebrae em `public/assets/`
 
 ### Changed
+- Títulos e descrições de seções centralizados em `src/data/sections.ts`
+- Dados de agenda de Campina Grande substituídos por valores reais do Figma (6 agendas, 16 indicadores)
+- `AgendaIndicator`: adicionado separador horizontal entre indicadores
+- `AgendaCard`: border-radius corrigido para `radius-sm`
+- `SectionAgendas`: cor do destaque usa token semântico `--semantic-info-text-info`
+- Espaçamento entre seções: gap 96px (`--spacing-3xl`) + padding top/bottom no `<main>`
 - `index.html`: lang `pt-BR`, título atualizado para "OPP — Observatório de Políticas Públicas"
 - `App.tsx`: React Router com MunicipioProvider
 - `main.tsx`: removida importação de `.tsx` extensão desnecessária
