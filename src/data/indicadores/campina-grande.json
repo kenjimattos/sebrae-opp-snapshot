@@ -1,0 +1,84 @@
+{
+  "municipio": "Campina Grande",
+  "agendas": [
+    {
+      "nome": "Desenvolvimento Econômico",
+      "indicadores": [
+        { "label": "PIB per capita", "valor": "R$ 24.180", "variacao": "+2.8%", "status": "success" },
+        { "label": "Taxa de desemprego", "valor": "10.2%", "variacao": "-0.5%", "status": "warning" },
+        { "label": "Empresas ativas", "valor": "28.450", "variacao": "+4.1%", "status": "success" },
+        { "label": "Formalização", "valor": "55.8%", "variacao": "+1.7%", "status": "warning" }
+      ]
+    },
+    {
+      "nome": "Educação e Qualificação",
+      "indicadores": [
+        { "label": "IDEB Anos Finais", "valor": 4.5, "variacao": "+0.2", "status": "warning" },
+        { "label": "Taxa de alfabetização", "valor": "91.8%", "variacao": "+0.6%", "status": "success" },
+        { "label": "Matrículas ensino técnico", "valor": "8.920", "variacao": "+6.5%", "status": "success" },
+        { "label": "Evasão escolar", "valor": "4.2%", "variacao": "+0.5%", "status": "alert" }
+      ]
+    },
+    {
+      "nome": "Infraestrutura e Urbanismo",
+      "indicadores": [
+        { "label": "Cobertura saneamento", "valor": "65.3%", "variacao": "+1.8%", "status": "warning" },
+        { "label": "Acesso à internet", "valor": "79.4%", "variacao": "+5.2%", "status": "success" },
+        { "label": "Pavimentação", "valor": "63.7%", "variacao": "+2.1%", "status": "warning" },
+        { "label": "Iluminação pública", "valor": "82.1%", "variacao": "+1.2%", "status": "success" }
+      ]
+    },
+    {
+      "nome": "Saúde e Bem-Estar",
+      "indicadores": [
+        { "label": "Leitos por 1.000 hab.", "valor": 3.1, "variacao": "+0.1", "status": "success" },
+        { "label": "Cobertura ESF", "valor": "88.2%", "variacao": "+2.4%", "status": "success" },
+        { "label": "Mortalidade infantil", "valor": "12.8‰", "variacao": "-0.5‰", "status": "warning" },
+        { "label": "Vacinação", "valor": "81.3%", "variacao": "+1.2%", "status": "success" }
+      ]
+    },
+    {
+      "nome": "Sustentabilidade Ambiental",
+      "indicadores": [
+        { "label": "Coleta seletiva", "valor": "22.1%", "variacao": "+3.4%", "status": "alert" },
+        { "label": "Áreas verdes per capita", "valor": "8.3 m²", "variacao": "-0.5 m²", "status": "alert" },
+        { "label": "Consumo de água", "valor": "132 L/dia", "variacao": "-2.1%", "status": "success" },
+        { "label": "Emissões CO₂", "valor": "1.8 t/hab", "variacao": "-0.9%", "status": "success" }
+      ]
+    },
+    {
+      "nome": "Inovação e Tecnologia",
+      "indicadores": [
+        { "label": "Startups ativas", "valor": 87, "variacao": "+15", "status": "success" },
+        { "label": "Patentes registradas", "valor": 34, "variacao": "+8", "status": "success" },
+        { "label": "Investimento P&D", "valor": "R$ 45M", "variacao": "+12.3%", "status": "success" },
+        { "label": "Parques tecnológicos", "valor": 2, "variacao": "0", "status": "warning" }
+      ]
+    }
+  ],
+  "baseEconomica": [
+    { "label": "PIB Municipal", "valor": "R$ 10.2 bi", "variacao": "+3.5%", "icone": "trending-up" },
+    { "label": "Arrecadação", "valor": "R$ 1.1 bi", "variacao": "+5.2%", "icone": "dollar-sign" },
+    { "label": "Empregos formais", "valor": "112.300", "variacao": "+1.8%", "icone": "briefcase" },
+    { "label": "Renda média", "valor": "R$ 2.340", "variacao": "+2.9%", "icone": "wallet" },
+    { "label": "Exportações", "valor": "R$ 380M", "variacao": "+8.7%", "icone": "globe" }
+  ],
+  "riscos": [
+    { "titulo": "Seca prolongada", "descricao": "Região do semiárido com períodos de estiagem cada vez mais longos.", "percentual": 82, "tipo": "alert" },
+    { "titulo": "Evasão de talentos", "descricao": "Formados em TI migrando para capitais por falta de oportunidades locais.", "percentual": 45, "tipo": "warning" },
+    { "titulo": "Infraestrutura viária", "descricao": "35% das vias urbanas necessitam de recapeamento urgente.", "percentual": 58, "tipo": "warning" }
+  ],
+  "panorama": {
+    "idhm": 0.72,
+    "ranking": [
+      { "municipio": "João Pessoa", "valor": 0.763 },
+      { "municipio": "Campina Grande", "valor": 0.72 },
+      { "municipio": "Patos", "valor": 0.701 },
+      { "municipio": "Bayeux", "valor": 0.649 },
+      { "municipio": "Santa Rita", "valor": 0.641 },
+      { "municipio": "Cabedelo", "valor": 0.748 },
+      { "municipio": "Guarabira", "valor": 0.673 },
+      { "municipio": "Sousa", "valor": 0.668 }
+    ]
+  }
+}

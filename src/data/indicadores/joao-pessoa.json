@@ -1,0 +1,84 @@
+{
+  "municipio": "João Pessoa",
+  "agendas": [
+    {
+      "nome": "Desenvolvimento Econômico",
+      "indicadores": [
+        { "label": "PIB per capita", "valor": "R$ 32.450", "variacao": "+3.2%", "status": "success" },
+        { "label": "Taxa de desemprego", "valor": "8.7%", "variacao": "-1.1%", "status": "success" },
+        { "label": "Empresas ativas", "valor": "45.230", "variacao": "+5.4%", "status": "success" },
+        { "label": "Formalização", "valor": "62.3%", "variacao": "+2.1%", "status": "warning" }
+      ]
+    },
+    {
+      "nome": "Educação e Qualificação",
+      "indicadores": [
+        { "label": "IDEB Anos Finais", "valor": 4.8, "variacao": "+0.3", "status": "warning" },
+        { "label": "Taxa de alfabetização", "valor": "94.2%", "variacao": "+0.8%", "status": "success" },
+        { "label": "Matrículas ensino técnico", "valor": "12.340", "variacao": "+8.2%", "status": "success" },
+        { "label": "Evasão escolar", "valor": "3.1%", "variacao": "+0.2%", "status": "alert" }
+      ]
+    },
+    {
+      "nome": "Infraestrutura e Urbanismo",
+      "indicadores": [
+        { "label": "Cobertura saneamento", "valor": "78.5%", "variacao": "+2.3%", "status": "warning" },
+        { "label": "Acesso à internet", "valor": "85.1%", "variacao": "+4.7%", "status": "success" },
+        { "label": "Pavimentação", "valor": "71.2%", "variacao": "+1.5%", "status": "warning" },
+        { "label": "Iluminação pública", "valor": "89.3%", "variacao": "+0.8%", "status": "success" }
+      ]
+    },
+    {
+      "nome": "Saúde e Bem-Estar",
+      "indicadores": [
+        { "label": "Leitos por 1.000 hab.", "valor": 2.8, "variacao": "+0.2", "status": "warning" },
+        { "label": "Cobertura ESF", "valor": "82.4%", "variacao": "+3.1%", "status": "success" },
+        { "label": "Mortalidade infantil", "valor": "11.2‰", "variacao": "-0.8‰", "status": "success" },
+        { "label": "Vacinação", "valor": "76.5%", "variacao": "-2.3%", "status": "alert" }
+      ]
+    },
+    {
+      "nome": "Sustentabilidade Ambiental",
+      "indicadores": [
+        { "label": "Coleta seletiva", "valor": "34.2%", "variacao": "+5.1%", "status": "warning" },
+        { "label": "Áreas verdes per capita", "valor": "12.5 m²", "variacao": "-0.3 m²", "status": "alert" },
+        { "label": "Consumo de água", "valor": "145 L/dia", "variacao": "-3.2%", "status": "success" },
+        { "label": "Emissões CO₂", "valor": "2.1 t/hab", "variacao": "-1.5%", "status": "success" }
+      ]
+    },
+    {
+      "nome": "Turismo e Cultura",
+      "indicadores": [
+        { "label": "Fluxo turístico", "valor": "1.2M", "variacao": "+12.3%", "status": "success" },
+        { "label": "Receita turismo", "valor": "R$ 890M", "variacao": "+8.7%", "status": "success" },
+        { "label": "Equipamentos culturais", "valor": 42, "variacao": "+3", "status": "warning" },
+        { "label": "Eventos culturais/ano", "valor": 156, "variacao": "+18", "status": "success" }
+      ]
+    }
+  ],
+  "baseEconomica": [
+    { "label": "PIB Municipal", "valor": "R$ 28.5 bi", "variacao": "+4.2%", "icone": "trending-up" },
+    { "label": "Arrecadação", "valor": "R$ 3.2 bi", "variacao": "+6.8%", "icone": "dollar-sign" },
+    { "label": "Empregos formais", "valor": "234.500", "variacao": "+2.1%", "icone": "briefcase" },
+    { "label": "Renda média", "valor": "R$ 2.890", "variacao": "+3.5%", "icone": "wallet" },
+    { "label": "Exportações", "valor": "R$ 1.1 bi", "variacao": "+12.4%", "icone": "globe" }
+  ],
+  "riscos": [
+    { "titulo": "Déficit habitacional", "descricao": "Estimativa de 45.000 famílias sem moradia adequada na região metropolitana.", "percentual": 78, "tipo": "alert" },
+    { "titulo": "Vulnerabilidade hídrica", "descricao": "Reservatórios operando a 52% da capacidade com previsão de redução.", "percentual": 52, "tipo": "warning" },
+    { "titulo": "Desigualdade social", "descricao": "Índice de Gini de 0.58, acima da média nacional.", "percentual": 65, "tipo": "alert" }
+  ],
+  "panorama": {
+    "idhm": 0.763,
+    "ranking": [
+      { "municipio": "João Pessoa", "valor": 0.763 },
+      { "municipio": "Campina Grande", "valor": 0.72 },
+      { "municipio": "Patos", "valor": 0.701 },
+      { "municipio": "Bayeux", "valor": 0.649 },
+      { "municipio": "Santa Rita", "valor": 0.641 },
+      { "municipio": "Cabedelo", "valor": 0.748 },
+      { "municipio": "Guarabira", "valor": 0.673 },
+      { "municipio": "Sousa", "valor": 0.668 }
+    ]
+  }
+}
