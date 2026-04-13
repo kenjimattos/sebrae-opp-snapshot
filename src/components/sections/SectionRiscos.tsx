@@ -1,33 +1,53 @@
 // Figma: Section/Riscos (390:594)
+// Dynamic: derives risk cards from agenda indicators with alert/warning status
 
-import type { Risco } from '@/types/indicadores'
+import type { Agenda } from '@/types/indicadores'
 import SectionContainer from '@/components/ui/SectionContainer'
 import SectionHeader from '@/components/SectionHeader'
 import RisksCard from '@/components/risks/RisksCard'
 import { sectionContent } from '@/data/sections'
+import { riscosContexto, defaultRiscoContexto } from '@/data/riscos-contexto'
 
 interface SectionRiscosProps {
-  riscos: Risco[]
+  agendas: Agenda[]
 }
 
-export default function SectionRiscos({ riscos }: SectionRiscosProps) {
+export default function SectionRiscos({ agendas }: SectionRiscosProps) {
+  // Extract indicators with alert first, then warning
+  const riscos = agendas
+    .flatMap((a) =>
+      a.indicadores
+        .filter((i) => i.status === 'alert' || i.status === 'warning')
+        .map((i) => ({ ...i, agenda: a.nome })),
+    )
+    .sort((a, b) => {
+      if (a.status === 'alert' && b.status !== 'alert') return -1
+      if (a.status !== 'alert' && b.status === 'alert') return 1
+      return 0
+    })
+
+  // Show top 3 risks (matching Figma's 3-column grid)
+  const topRiscos = riscos.slice(0, 3)
+
   return (
     <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
-      <SectionHeader
-        title={sectionContent.riscos.title}
-        description={sectionContent.riscos.description}
-      />
+      <SectionHeader title={sectionContent.riscos.title} />
 
       <div className="grid grid-cols-3 gap-[var(--spacing-sm)] w-full">
-        {riscos.map((risco) => (
-          <RisksCard
-            key={risco.titulo}
-            titulo={risco.titulo}
-            descricao={risco.descricao}
-            percentual={risco.percentual}
-            tipo={risco.tipo}
-          />
-        ))}
+        {topRiscos.map((risco) => {
+          const ctx = riscosContexto[risco.label] ?? defaultRiscoContexto
+          return (
+            <RisksCard
+              key={risco.label}
+              label={risco.label}
+              valor={risco.valor}
+              tipo={risco.status}
+              descricao={ctx.descricao}
+              indicadorLabel={ctx.indicadorLabel}
+              contexto={ctx.contexto}
+            />
+          )
+        })}
       </div>
     </SectionContainer>
   )

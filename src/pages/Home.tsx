@@ -24,7 +24,7 @@ export default function Home() {
             <SectionAgendas agendas={dados.agendas} />
             <SectionPanorama panorama={dados.panorama} municipio={municipio.nome} />
             <SectionBaseEconomica dados={dados.baseEconomica} />
-            <SectionRiscos riscos={dados.riscos} />
+            <SectionRiscos agendas={dados.agendas} />
           </>
         )}
         <SectionRecursos />

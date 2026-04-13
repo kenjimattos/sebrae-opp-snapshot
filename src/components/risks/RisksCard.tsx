@@ -1,44 +1,71 @@
 // Figma: Risks/Card (set 563:4445)
-// Variants: Alert (red), Warning (yellow)
+// Variants: Alert (red border/bg), Warning (yellow border/bg)
+// Shows: indicator label + value, risk description, alert label, context
+
+import type { StatusType } from '@/types/indicadores'
 
 interface RisksCardProps {
-  titulo: string
+  label: string
+  valor: string | number
+  tipo: StatusType
   descricao: string
-  percentual: number
-  tipo: 'alert' | 'warning'
+  indicadorLabel: string
+  contexto: string
   className?: string
 }
 
-const tipoStyles = {
+const tipoStyles: Record<'alert' | 'warning', { bg: string; border: string; valueColor: string }> = {
   alert: {
     bg: 'bg-[var(--semantic-alert-surface)]',
     border: 'border-[var(--semantic-alert)]',
-    valueColor: 'text-[color:var(--primitives-red-800)]',
+    valueColor: 'text-[color:var(--semantic-alert)]',
   },
   warning: {
     bg: 'bg-[var(--semantic-warning-surface)]',
     border: 'border-[var(--semantic-warning)]',
-    valueColor: 'text-[color:var(--primitives-yellow-800)]',
+    valueColor: 'text-[color:var(--semantic-warning)]',
   },
 }
 
-export default function RisksCard({ titulo, descricao, percentual, tipo, className = '' }: RisksCardProps) {
-  const styles = tipoStyles[tipo]
+export default function RisksCard({
+  label,
+  valor,
+  tipo,
+  descricao,
+  indicadorLabel,
+  contexto,
+  className = '',
+}: RisksCardProps) {
+  const effectiveTipo = tipo === 'success' ? 'warning' : tipo
+  const styles = tipoStyles[effectiveTipo]
 
   return (
     <div
       className={`flex flex-col gap-[var(--spacing-md)] border border-solid rounded-[var(--radius-sm)] p-[var(--spacing-lg)] ${styles.bg} ${styles.border} ${className}`}
     >
-      <div className="flex items-center gap-[var(--spacing-lg)] w-full">
+      {/* Header: label + value */}
+      <div className="flex items-start gap-[var(--spacing-md)] w-full">
         <span className="flex-1 font-semibold text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
-          {titulo}
+          {label}
         </span>
-        <span className={`font-black text-[length:var(--font-size-display-small)] leading-none ${styles.valueColor}`}>
-          {percentual}%
+        <span className={`shrink-0 font-black text-[length:var(--font-size-display-small)] leading-none ${styles.valueColor}`}>
+          {valor}
         </span>
       </div>
+
+      {/* Risk description */}
       <p className="font-normal text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
         {descricao}
+      </p>
+
+      {/* Alert indicator label */}
+      <p className="font-bold text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
+        {indicadorLabel}
+      </p>
+
+      {/* Context */}
+      <p className="font-normal text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
+        {contexto}
       </p>
     </div>
   )

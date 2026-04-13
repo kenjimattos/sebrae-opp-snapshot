@@ -14,9 +14,7 @@ export const sectionContent = {
     title: 'Base Econômica e Competitiva',
   },
   riscos: {
-    title: 'Riscos e alertas',
-    description:
-      'Indicadores que demandam atenção imediata e podem impactar o desenvolvimento do município.',
+    title: 'Onde estão os riscos estratégicos?',
   },
   recursos: {
     title: 'Acesso a recursos',
