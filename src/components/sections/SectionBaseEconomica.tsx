@@ -13,24 +13,23 @@ interface SectionBaseEconomicaProps {
 
 export default function SectionBaseEconomica({ dados }: SectionBaseEconomicaProps) {
   return (
-    <SectionContainer className="flex flex-col gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
-      <SectionHeader
-        title={sectionContent.baseEconomica.title}
-        description={sectionContent.baseEconomica.description}
-      />
+    <SectionContainer className="flex flex-col gap-[var(--spacing-2xl)] py-[var(--spacing-lg)]">
+      <SectionHeader title={sectionContent.baseEconomica.title} />
 
-      <div className="grid grid-cols-5 gap-[var(--spacing-sm)] w-full">
-        {dados.map((item) => (
-          <EconomicsCard
-            key={item.label}
-            label={item.label}
-            valor={item.valor}
-            variacao={item.variacao}
-          />
-        ))}
+      <div className="flex flex-col gap-[var(--spacing-lg)]">
+        <div className="flex flex-wrap gap-[var(--spacing-sm)] w-full">
+          {dados.map((item) => (
+            <EconomicsCard
+              key={item.label}
+              label={item.label}
+              valor={item.valor}
+              variacao={item.variacao}
+            />
+          ))}
+        </div>
+
+        <EconomicsAnalysis />
       </div>
-
-      <EconomicsAnalysis />
     </SectionContainer>
   )
 }

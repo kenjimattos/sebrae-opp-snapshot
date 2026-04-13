@@ -11,7 +11,7 @@ interface EconomicsCardProps {
 export default function EconomicsCard({ label, valor, variacao, className = '' }: EconomicsCardProps) {
   return (
     <div
-      className={`flex flex-col items-start justify-between bg-[var(--semantic-surface-primary)] border border-solid border-[var(--semantic-surface-primary)] rounded-[var(--radius-sm)] p-[var(--spacing-md)] h-[172px] ${className}`}
+      className={`flex flex-col items-start justify-between bg-[var(--semantic-surface-primary)] border border-solid border-[var(--semantic-surface-primary)] rounded-[var(--radius-sm)] p-[var(--spacing-md)] h-[172px] w-[230px] ${className}`}
     >
       <span className="font-normal text-[length:var(--font-size-h4)] leading-none text-[color:var(--semantic-text-primary)] uppercase">
         {label}

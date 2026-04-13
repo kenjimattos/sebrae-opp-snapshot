@@ -49,11 +49,16 @@
     }
   ],
   "baseEconomica": [
-    { "label": "PIB Municipal", "valor": "R$ 10.2 bi", "variacao": "+3.5%", "icone": "trending-up" },
-    { "label": "Arrecadação", "valor": "R$ 1.1 bi", "variacao": "+5.2%", "icone": "dollar-sign" },
-    { "label": "Empregos formais", "valor": "112.300", "variacao": "+1.8%", "icone": "briefcase" },
-    { "label": "Renda média", "valor": "R$ 2.340", "variacao": "+2.9%", "icone": "wallet" },
-    { "label": "Exportações", "valor": "R$ 380M", "variacao": "+8.7%", "icone": "globe" }
+    { "label": "PIB per capta", "valor": "R$ 28.450", "variacao": "+3,2%", "icone": "trending-up" },
+    { "label": "Participação MPE no PIB", "valor": "34%", "variacao": "+1,8%", "icone": "building" },
+    { "label": "Taxa de desemprego", "valor": "11.2%", "variacao": "-0,5%", "icone": "users" },
+    { "label": "Índice GEM", "valor": "0.68", "variacao": "+0,04", "icone": "bar-chart" },
+    { "label": "Índice ICE", "valor": "4.21", "variacao": "+0,15", "icone": "bar-chart" },
+    { "label": "Dependência Adm. Pública", "valor": "42%", "variacao": "-1,2%", "icone": "building" },
+    { "label": "Empresas ativas", "valor": "12.840", "variacao": "+4,1%", "icone": "briefcase" },
+    { "label": "População", "valor": "411.807", "variacao": "+0,6%", "icone": "users" },
+    { "label": "Pop. até ½ sal. mínimo", "valor": "38.5%", "variacao": "-1,3%", "icone": "users" },
+    { "label": "IDH-M", "valor": "0,720", "variacao": "+0,008", "icone": "bar-chart" }
   ],
   "riscos": [
     { "titulo": "Seca prolongada", "descricao": "Região do semiárido com períodos de estiagem cada vez mais longos.", "percentual": 82, "tipo": "alert" },

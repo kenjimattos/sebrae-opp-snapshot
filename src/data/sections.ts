@@ -11,9 +11,7 @@ export const sectionContent = {
       'Explore como o ambiente de negócios se distribui entre os municípios do estado e compare indicadores entre territórios.',
   },
   baseEconomica: {
-    title: 'Base econômica',
-    description:
-      'Principais indicadores econômicos do município, incluindo PIB, arrecadação e mercado de trabalho.',
+    title: 'Base Econômica e Competitiva',
   },
   riscos: {
     title: 'Riscos e alertas',

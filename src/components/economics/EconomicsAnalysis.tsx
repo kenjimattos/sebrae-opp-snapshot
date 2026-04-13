@@ -1,53 +1,25 @@
 // Figma: Economics/Analysis (368:834)
-// Bar chart comparing economic indicators across municipalities
+// Bloco de análise textual — futuro: conectado a LLM
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts'
-import ChartWrapper from '@/components/ui/ChartWrapper'
+interface EconomicsAnalysisProps {
+  analise?: string
+  className?: string
+}
 
-const comparisonData = [
-  { municipio: 'João Pessoa', pib: 28.5, arrecadacao: 3.2, exportacoes: 1.1 },
-  { municipio: 'Campina Grande', pib: 10.2, arrecadacao: 1.1, exportacoes: 0.38 },
-  { municipio: 'Patos', pib: 2.1, arrecadacao: 0.245, exportacoes: 0.045 },
-]
+const defaultAnalise =
+  'A economia local apresenta crescimento moderado do PIB per capita e melhora nos índices de competitividade, porém mantém alta dependência do setor público e parcela significativa da população em faixa de baixa renda. O fortalecimento das MPE e a diversificação produtiva são caminhos prioritários.'
 
-export default function EconomicsAnalysis({ className = '' }: { className?: string }) {
+export default function EconomicsAnalysis({ analise = defaultAnalise, className = '' }: EconomicsAnalysisProps) {
   return (
-    <ChartWrapper title="Comparativo econômico (R$ bilhões)" className={className}>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={comparisonData} barCategoryGap="20%">
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--semantic-surface-secondary)" />
-          <XAxis
-            dataKey="municipio"
-            tick={{ fill: 'var(--semantic-text-primary)', fontSize: 12 }}
-            axisLine={{ stroke: 'var(--semantic-surface-secondary)' }}
-          />
-          <YAxis
-            tick={{ fill: 'var(--semantic-text-primary)', fontSize: 12 }}
-            axisLine={{ stroke: 'var(--semantic-surface-secondary)' }}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'var(--semantic-surface-primary)',
-              border: '1px solid var(--semantic-surface-secondary)',
-              borderRadius: 'var(--radius-sm)',
-              color: 'var(--semantic-text-primary)',
-            }}
-          />
-          <Legend />
-          <Bar dataKey="pib" name="PIB" fill="var(--primitives-blue-500)" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="arrecadacao" name="Arrecadação" fill="var(--primitives-green-500)" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="exportacoes" name="Exportações" fill="var(--primitives-yellow-500)" radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
-    </ChartWrapper>
+    <div
+      className={`bg-[var(--semantic-surface-primary)] rounded-[var(--radius-md)] px-[var(--spacing-xl)] py-[var(--spacing-md)] flex flex-col gap-[var(--spacing-xs)] w-full ${className}`}
+    >
+      <h4 className="font-semibold text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
+        Análise
+      </h4>
+      <p className="font-normal text-[length:var(--font-size-body-lg)] leading-[25px] text-[color:var(--semantic-text-primary)]">
+        {analise}
+      </p>
+    </div>
   )
 }
