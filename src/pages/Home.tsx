@@ -1,16 +1,36 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import SectionAgendas from '@/components/sections/SectionAgendas'
+import SectionPanorama from '@/components/sections/SectionPanorama'
+import SectionBaseEconomica from '@/components/sections/SectionBaseEconomica'
+import SectionRiscos from '@/components/sections/SectionRiscos'
+import SectionRecursos from '@/components/sections/SectionRecursos'
+import SectionCapacitacao from '@/components/sections/SectionCapacitacao'
+import SectionCasosSucesso from '@/components/sections/SectionCasosSucesso'
+import SectionAIAssistant from '@/components/sections/SectionAIAssistant'
 import { useMunicipio } from '@/hooks/useMunicipio'
 
 export default function Home() {
   const { municipio } = useMunicipio()
+  const dados = municipio.dados
 
   return (
     <div className="min-h-screen bg-[var(--semantic-background-primary)]">
       <Header municipio={municipio.nome} />
 
       <main className="mx-auto w-full max-w-[1440px]">
-        {/* Sections will be added in Fase 7 */}
+        {dados && (
+          <>
+            <SectionAgendas agendas={dados.agendas} />
+            <SectionPanorama panorama={dados.panorama} municipio={municipio.nome} />
+            <SectionBaseEconomica dados={dados.baseEconomica} />
+            <SectionRiscos riscos={dados.riscos} />
+          </>
+        )}
+        <SectionRecursos />
+        <SectionCapacitacao />
+        <SectionCasosSucesso />
+        <SectionAIAssistant />
       </main>
 
       <Footer />

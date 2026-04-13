@@ -1,0 +1,46 @@
+// Figma: Section/Agendas (390:567)
+
+import type { Agenda, StatusType } from '@/types/indicadores'
+import SectionContainer from '@/components/ui/SectionContainer'
+import AgendaStats from '@/components/agenda/AgendaStats'
+import AgendaCard from '@/components/agenda/AgendaCard'
+
+interface SectionAgendasProps {
+  agendas: Agenda[]
+}
+
+export default function SectionAgendas({ agendas }: SectionAgendasProps) {
+  // Count totals across all agendas
+  const allIndicadores = agendas.flatMap((a) => a.indicadores)
+  const total = allIndicadores.length
+  const counts: Record<StatusType, number> = {
+    success: allIndicadores.filter((i) => i.status === 'success').length,
+    warning: allIndicadores.filter((i) => i.status === 'warning').length,
+    alert: allIndicadores.filter((i) => i.status === 'alert').length,
+  }
+
+  return (
+    <SectionContainer className="flex flex-col items-center gap-[var(--spacing-lg)] py-[var(--spacing-lg)]">
+      {/* Title */}
+      <h2 className="font-bold text-[length:var(--font-size-h1)] leading-none text-[color:var(--semantic-text-primary)] text-center max-w-[860px]">
+        Veja como está o{' '}
+        <span className="text-[color:var(--primitives-blue-200)]">ambiente de negócio</span>
+        {' '}do seu município
+      </h2>
+
+      {/* Stats bar */}
+      <AgendaStats total={total} counts={counts} />
+
+      {/* Cards grid: 3 columns */}
+      <div className="grid grid-cols-3 gap-[var(--spacing-sm)] w-full">
+        {agendas.map((agenda) => (
+          <AgendaCard
+            key={agenda.nome}
+            title={agenda.nome}
+            indicadores={agenda.indicadores}
+          />
+        ))}
+      </div>
+    </SectionContainer>
+  )
+}

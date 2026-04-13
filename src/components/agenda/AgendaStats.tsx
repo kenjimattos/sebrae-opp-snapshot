@@ -1,0 +1,65 @@
+// Figma: Agenda/Stats (518:3311)
+// Summary bar: total indicators + success/warning/alert counts
+
+import type { StatusType } from '@/types/indicadores'
+
+interface AgendaStatsProps {
+  total: number
+  counts: Record<StatusType, number>
+  className?: string
+}
+
+const labels: Record<StatusType, string> = {
+  success: 'Bom',
+  warning: 'Atenção',
+  alert: 'Alerta',
+}
+
+const styles: Record<StatusType, { bg: string; dot: string }> = {
+  success: {
+    bg: 'bg-[var(--semantic-success-surface)]',
+    dot: 'bg-[var(--semantic-success)]',
+  },
+  warning: {
+    bg: 'bg-[var(--semantic-warning-surface)]',
+    dot: 'bg-[var(--semantic-warning)]',
+  },
+  alert: {
+    bg: 'bg-[var(--semantic-alert-surface)]',
+    dot: 'bg-[var(--semantic-alert)]',
+  },
+}
+
+export default function AgendaStats({ total, counts, className = '' }: AgendaStatsProps) {
+  return (
+    <div
+      className={`flex items-center justify-between bg-[var(--semantic-surface-primary)] rounded-[var(--radius-sm)] px-[var(--spacing-lg)] py-[var(--spacing-md)] w-full ${className}`}
+    >
+      <div className="flex items-center gap-[var(--spacing-md)]">
+        <span className="font-black text-[length:var(--font-size-display)] leading-none text-[color:var(--semantic-text-primary)]">
+          {total}
+        </span>
+        <span className="font-normal text-[length:var(--font-size-body-lg)] leading-none text-[color:var(--semantic-text-primary)]">
+          indicadores avaliados
+        </span>
+      </div>
+
+      <div className="flex items-center gap-[var(--spacing-md)]">
+        {(['success', 'warning', 'alert'] as StatusType[]).map((status) => (
+          <div
+            key={status}
+            className={`flex items-center gap-[8px] px-[16px] py-[8px] rounded-[var(--radius-md)] ${styles[status].bg}`}
+          >
+            <div className={`size-[10px] rounded-full ${styles[status].dot}`} />
+            <span className="font-black text-[length:var(--font-size-display-small)] leading-none text-[color:var(--semantic-text-primary)]">
+              {counts[status]}
+            </span>
+            <span className="font-normal text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
+              {labels[status]}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
