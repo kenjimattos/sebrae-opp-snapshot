@@ -12,11 +12,14 @@ interface AgendaIndicatorProps {
 
 export default function AgendaIndicator({ label, valor, status }: AgendaIndicatorProps) {
   return (
-    <div className="flex items-center gap-[var(--spacing-lg)] px-[var(--spacing-xs)] w-full">
-      <span className="flex-1 font-normal text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
-        {label}
-      </span>
-      <AgendaBadge status={status} value={valor} />
+    <div className="flex flex-col gap-[var(--spacing-sm)] w-full">
+      <div className="flex items-center gap-[var(--spacing-lg)] px-[var(--spacing-xs)] w-full">
+        <span className="flex-1 font-normal text-[length:var(--font-size-body)] leading-[var(--spacing-md)] text-[color:var(--semantic-text-primary)]">
+          {label}
+        </span>
+        <AgendaBadge status={status} value={valor} />
+      </div>
+      <div className="h-px w-full bg-[var(--semantic-surface-secondary)]" />
     </div>
   )
 }
