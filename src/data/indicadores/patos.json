@@ -57,11 +57,16 @@
     }
   ],
   "baseEconomica": [
-    { "label": "PIB Municipal", "valor": "R$ 2.1 bi", "variacao": "+2.8%", "icone": "trending-up" },
-    { "label": "Arrecadação", "valor": "R$ 245M", "variacao": "+3.9%", "icone": "dollar-sign" },
-    { "label": "Empregos formais", "valor": "28.400", "variacao": "+1.2%", "icone": "briefcase" },
-    { "label": "Renda média", "valor": "R$ 1.890", "variacao": "+2.5%", "icone": "wallet" },
-    { "label": "Exportações", "valor": "R$ 45M", "variacao": "+6.2%", "icone": "globe" }
+    { "label": "PIB per capta", "valor": "R$ 18.920", "variacao": "+2,1%", "icone": "trending-up" },
+    { "label": "Participação MPE no PIB", "valor": "28%", "variacao": "+0,9%", "icone": "building" },
+    { "label": "Taxa de desemprego", "valor": "12.5%", "variacao": "+0,3%", "icone": "users" },
+    { "label": "Índice GEM", "valor": "0.52", "variacao": "+0,02", "icone": "bar-chart" },
+    { "label": "Índice ICE", "valor": "3.45", "variacao": "+0,08", "icone": "bar-chart" },
+    { "label": "Dependência Adm. Pública", "valor": "56%", "variacao": "-0,5%", "icone": "building" },
+    { "label": "Empresas ativas", "valor": "8.120", "variacao": "+2,8%", "icone": "briefcase" },
+    { "label": "População", "valor": "108.192", "variacao": "+0,3%", "icone": "users" },
+    { "label": "Pop. até ½ sal. mínimo", "valor": "45.2%", "variacao": "-0,7%", "icone": "users" },
+    { "label": "IDH-M", "valor": "0,701", "variacao": "+0,005", "icone": "bar-chart" }
   ],
   "riscos": [
     { "titulo": "Desertificação", "descricao": "Avanço da degradação ambiental no sertão paraibano ameaça produção agrícola.", "percentual": 72, "tipo": "alert" },

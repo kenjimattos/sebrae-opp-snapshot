@@ -24,6 +24,7 @@ export default function SectionBaseEconomica({ dados }: SectionBaseEconomicaProp
               label={item.label}
               valor={item.valor}
               variacao={item.variacao}
+              icone={item.icone}
             />
           ))}
         </div>

@@ -57,11 +57,16 @@
     }
   ],
   "baseEconomica": [
-    { "label": "PIB Municipal", "valor": "R$ 28.5 bi", "variacao": "+4.2%", "icone": "trending-up" },
-    { "label": "Arrecadação", "valor": "R$ 3.2 bi", "variacao": "+6.8%", "icone": "dollar-sign" },
-    { "label": "Empregos formais", "valor": "234.500", "variacao": "+2.1%", "icone": "briefcase" },
-    { "label": "Renda média", "valor": "R$ 2.890", "variacao": "+3.5%", "icone": "wallet" },
-    { "label": "Exportações", "valor": "R$ 1.1 bi", "variacao": "+12.4%", "icone": "globe" }
+    { "label": "PIB per capta", "valor": "R$ 32.450", "variacao": "+3,8%", "icone": "trending-up" },
+    { "label": "Participação MPE no PIB", "valor": "31%", "variacao": "+1,5%", "icone": "building" },
+    { "label": "Taxa de desemprego", "valor": "8.7%", "variacao": "-1,1%", "icone": "users" },
+    { "label": "Índice GEM", "valor": "0.72", "variacao": "+0,05", "icone": "bar-chart" },
+    { "label": "Índice ICE", "valor": "4.58", "variacao": "+0,22", "icone": "bar-chart" },
+    { "label": "Dependência Adm. Pública", "valor": "38%", "variacao": "-0,8%", "icone": "building" },
+    { "label": "Empresas ativas", "valor": "45.230", "variacao": "+5,4%", "icone": "briefcase" },
+    { "label": "População", "valor": "817.511", "variacao": "+0,8%", "icone": "users" },
+    { "label": "Pop. até ½ sal. mínimo", "valor": "32.1%", "variacao": "-1,8%", "icone": "users" },
+    { "label": "IDH-M", "valor": "0,763", "variacao": "+0,012", "icone": "bar-chart" }
   ],
   "riscos": [
     { "titulo": "Déficit habitacional", "descricao": "Estimativa de 45.000 famílias sem moradia adequada na região metropolitana.", "percentual": 78, "tipo": "alert" },
