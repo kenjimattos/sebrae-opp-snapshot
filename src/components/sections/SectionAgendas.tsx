@@ -24,7 +24,7 @@ export default function SectionAgendas({ agendas }: SectionAgendasProps) {
       {/* Title */}
       <h2 className="font-bold text-[length:var(--font-size-h1)] leading-none text-[color:var(--semantic-text-primary)] text-center max-w-[860px]">
         Veja como está o{' '}
-        <span className="text-[color:var(--primitives-blue-200)]">ambiente de negócio</span>
+        <span className="text-[color:var(--semantic-info-text-info)]">ambiente de negócio</span>
         {' '}do seu município
       </h2>
 
