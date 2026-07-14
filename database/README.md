@@ -1,5 +1,8 @@
 # Banco de Dados — Plataforma OPP
 
+> **Nota (snapshot público):** este repositório é um snapshot sanitizado para fins de portfólio. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.); o runbook operacional do ETL não faz parte do snapshot.
+
+
 Modelagem e povoamento do banco **MongoDB** da OPP (servidor do Sebrae Nacional).
 O banco é a **fonte de verdade** dos dados de indicadores, servidos ao frontend pela
 **API de leitura** (`server/` — ver `../server/README.md`). Hoje cobre **33 indicadores**
@@ -635,7 +638,7 @@ python3 database/scripts/gerar_seed_remuneracao_media_lake.py --collection 2024_
 ```
 database/
   README.md                       # este arquivo
-  RUNBOOK_ETL.md                  # operação do ETL lake do Sebrae -> OPP (3 máquinas, cron)
+  RUNBOOK_ETL.md                  # (runbook operacional — não incluído neste snapshot)
   MAPEAMENTO_BASE_DOS_DADOS.md    # indicadores × fontes (BD / MB / AQ / data lake Sebrae)
   setup.mongodb.js                # coleções + validadores + índices (idempotente)
   seed/

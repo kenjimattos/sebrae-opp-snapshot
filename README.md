@@ -1,185 +1,67 @@
-# Plataforma OPP — Observatório de Politicas Publicas
+# Plataforma OPP — Observatório de Políticas Públicas
 
-Plataforma de dados municipais para o Sebrae Paraiba. Consolida indicadores socioeconomicos, agendas prioritarias, riscos estrategicos e oportunidades de recursos em uma interface unificada para gestores publicos.
+> **📸 Snapshot para portfólio.** Este repositório é um **snapshot estático e sanitizado** de um projeto real desenvolvido para o Sebrae Paraíba, publicado exclusivamente para fins de portfólio. Não é o repositório de desenvolvimento (que é privado) e não recebe atualizações. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.). Os dados incluídos são um recorte estático de indicadores públicos agregados por município.
 
-## Screenshot
+Plataforma de dados municipais para o Sebrae Paraíba. Consolida indicadores socioeconômicos, agendas prioritárias, riscos estratégicos e oportunidades de recursos em uma interface unificada para gestores públicos — a **Jornada do Município Empreendedor**, cobrindo os **223 municípios da Paraíba**.
 
-> *Em breve*
+## O que tem aqui
+
+O projeto completo, em três camadas:
+
+| Camada | Pasta | Descrição |
+|---|---|---|
+| **Frontend** | `src/` | SPA React 19 + Vite, design system próprio via tokens CSS + Tailwind |
+| **API de leitura** | `server/` | Node/Fastify sobre MongoDB — devolve agendas + indicadores com semáforo já calculado |
+| **ETL / dados** | `database/` | Geradores Python (data lake → seeds MongoDB), seeds e mapeamento das fontes oficiais |
+
+Este snapshot inclui também um **recorte estático da API** (`public/api-snapshot/` + rewrites em `vercel.json`): deployado no Vercel, o frontend funciona como demo completa **sem banco de dados**.
+
+## Destaques técnicos
+
+- **Mapa da Paraíba em SVG puro** — gerado do GeoJSON do IBGE (projeção lon/lat → viewBox feita à mão), sem lib de mapa: hover com tooltip, seleção por clique e coloração coroplética por indicador (`src/components/map/ParaibaOutlineMap.tsx`).
+- **Semáforo orientado a dados** — a classificação bom/atenção/alerta de cada indicador vem do campo `threshold` no banco (faixas oficiais publicadas pelas fontes), calculada no servidor. Nenhum corte hardcoded no frontend; indicador sem faixa oficial simplesmente não exibe semáforo.
+- **Barra de indicador com marcador gradual** — posição e cor contínuas dentro da faixa oficial, amostrando o gradiente da própria barra via `background-position` (sem cálculo de cor em JS, compatível com dark mode por tokens).
+- **ETL de dados públicos** — geradores Python que leem o data lake (RAIS, Receita Federal, PNCP, Redesim, ESTBAN/BCB, IDEB, IBGE) e emitem seeds MongoDB idempotentes, com inspeção de schema, breakdown por município e marcação de confiabilidade amostral (médias com `n<30` são ocultadas pela API em vez de exibir valores enganosos).
+- **Design system do Figma a tokens** — 16 estilos tipográficos, espaçamentos, cores primitivas/semânticas e raios como CSS variables integradas ao Tailwind; dark mode por tokens.
+- **Formulador de projetos** — fluxo de 10 etapas com rascunho por município em `localStorage` e estado global via Context.
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Framework | React 19 + Vite 8 |
-| Linguagem | TypeScript 6 |
-| Estilizacao | Tailwind CSS v3 + CSS Variables (design tokens) |
-| Roteamento | React Router v7 |
-| Mapa | SVG custom gerado do GeoJSON da Paraiba (IBGE) — sem lib de mapa |
-| Backend | API de leitura Node/Fastify (`server/`) sobre MongoDB `DadosOPP` |
-| Dados / ETL | MongoDB `DadosOPP` alimentado pelo ETL em `database/` (lake -> seeds) |
-| Deploy | Nginx serve `dist/` + proxy `/api/*` para o processo Node |
+React 19 · TypeScript · Vite · Tailwind CSS v3 + design tokens · React Router v7 · Node/Fastify · MongoDB · Python (ETL)
 
-O frontend gera um **build estatico** (`vite build` -> `dist/`) e consome uma **API de
-leitura** (`server/`, Node/Fastify) que le o MongoDB `DadosOPP` e alimenta as secoes via
-`fetch('/api/...')`. Nao ha dados de indicadores estaticos no frontend — tudo vem do banco.
-Ver [Deploy (producao)](#deploy-producao) e [`server/README.md`](server/README.md).
+## Rodando
 
-## Funcionalidades
+**Como demo (sem banco)** — importe o repositório no Vercel: o build estático usa o recorte da API em `public/api-snapshot/` via rewrites (`/api/*` → JSON estático). É a forma recomendada de ver o projeto funcionando.
 
-A Home organiza tudo como uma **Jornada do Municipio Empreendedor**: uma `SideNav` com **4
-pilares**, e cada pilar alterna **modos de visualizacao** via `ModeToggle`. Todos os dados de
-indicadores vem da API (`/api/*`), com o municipio ativo em estado global.
-
-- **Login** (`/`) — porta de entrada do prototipo (autenticacao em memoria; reload desloga).
-- **Agendas prioritarias** — 6 eixos com indicadores por municipio. O semaforo (bom/atencao/alerta) so aparece nos indicadores com **faixa oficial** publicada pela fonte; o corte e derivado do `threshold` de cada indicador **no banco** (sem tabela hardcoded). Indicadores sem faixa nao mostram a barra.
-- **Pilar Ambiente de negocio** — 3 modos:
-  - *Eixos prioritarios* — cards dos 6 eixos com as barras de indicador (zonas rotuladas pelos cortes oficiais, ex.: IGM-CFA `< 5,01 · 5,01–7,51 · ≥ 7,51`).
-  - *Panorama socioeconomico* — cards de base economica (IDH-M, IDEB, GINI, PIB per capita, MEIs/MEs/EPPs, etc.) + analise simulada por IA (efeito typewriter, unica por municipio).
-  - *Riscos estrategicos* — extracao automatica dos top indicadores em alerta / atencao.
-- **Pilar Mapeamento de recursos** — modos *Emendas* e *Editais*.
-- **Pilar Cursos e boas praticas** — modos *Cursos* (carrossel ligado a Escola Virtual do Governo; pagina `/trilhas` dedicada) e *Boas praticas* (casos de sucesso).
-- **Pilar Formulador de projetos** — painel unico: fluxo em 10 etapas + revisao, rascunho por municipio em `localStorage`.
-- **Mapa da Paraiba** — SVG gerado do GeoJSON do IBGE (`ParaibaOutlineMap`), sem lib de mapa.
-- **Seletor de municipio** — lista os 223 municipios da PB vinda da API; troca sem "piscar" de volta ao mapa (stale-while-revalidate no provider).
-- **Paginas** — `/home`, `/trilhas`, `/oportunidades` (Login em `/`).
-
-## Municipios
-
-Os **223 municipios da Paraiba** sao servidos pela API a partir do MongoDB `DadosOPP`
-(`GET /api/municipalities`). O municipio default e **Campina Grande** (IBGE `2504009`). A
-cobertura de indicadores por municipio depende dos seeds ja aplicados pelo ETL (`database/`);
-indicador sem documento no banco simplesmente nao e retornado.
-
-## Desenvolvimento
-
-O frontend consome a API, entao em dev voce precisa dos **dois processos** rodando: o Vite
-(`:5173`) faz proxy de `/api` para o Node (`:3000`).
+**Desenvolvimento completo** exigiria um MongoDB populado pelos seeds de `database/` e a API de `server/` rodando — infraestrutura que não acompanha este snapshot:
 
 ```bash
-# 1) API (em outro terminal) — precisa alcancar o MongoDB DadosOPP
-cd server
-npm install
-cp .env.example .env          # preencher MONGO_URI
-npm run dev                   # tsx watch, porta 3000
-
-# 2) Frontend (na raiz)
-npm install --legacy-peer-deps
-npm run dev                   # http://localhost:5173 (/api -> :3000 via proxy)
-
-# Build de producao
-npm run build
-
-# Lint
-npm run lint
+npm install --legacy-peer-deps   # peer deps do React 19
+npm run dev                      # frontend (http://localhost:5173, /api → :3000)
 ```
-
-> A infra de testes (Vitest + Testing Library) segue configurada nos scripts (`npm run test:run`),
-> mas a suite foi retirada no redesign e ainda sera reescrita para a nova arquitetura.
-
-### Variaveis de ambiente
-
-O frontend nao precisa de variaveis de ambiente.
-
-**API** (`server/.env`) — ver [`server/README.md`](server/README.md):
-
-| Variavel | Descricao |
-|---|---|
-| `MONGO_URI` | Conexao com o MongoDB `DadosOPP` (usuario/senha, host `<host-do-banco>`) |
-| `MONGO_DB` | Nome do banco (default `DadosOPP`) |
-| `PORT` / `HOST` | Porta/host da API (default `3000` / `0.0.0.0`) |
 
 ## Estrutura
 
-O repositorio tem tres camadas: o **frontend** (`src/`), a **API de leitura** (`server/`) e o
-**ETL + seeds** do banco (`database/`).
-
 ```
-src/                          # Frontend React
-├── components/               # Componentes por grupo do Figma
-│   ├── agenda/               # AgendaCard, AgendaIndicator, IndicatorBar, ModeEixos
-│   ├── economics/            # EconomicsCard, EconomicsAnalysis, ModeEconomics
-│   ├── risks/                # RisksCard, ModeRisks
-│   ├── resources/            # ModeResources (Emendas), ModeEditais
-│   ├── training/             # TrainingCard, ModeTraining
-│   ├── case-studies/         # ModeCaseStudies
-│   ├── trilhas/              # Conteudo da pagina /trilhas
-│   ├── formulator/           # ModeFormulator + FormulatorForm + 10 steps + revisao
-│   ├── sections/             # SectionHero, SectionAgendas, SectionJornada
-│   ├── layout/               # Header, Footer, SideNav, CitySelector, Layout
-│   ├── map/                  # ParaibaOutlineMap (SVG do GeoJSON)
-│   ├── ui/                   # Button, ModeToggle, DropdownMenu, Tooltip, etc.
-│   └── icons/                # Re-exports Lucide
-├── data/                     # api.ts (client) + indicators/, home/, formulator/, geo/, layout.ts
-│                             #   (conteudo editorial; valores de indicador vem da API)
-├── hooks/                    # MunicipalityProvider, FormulatorProvider, AuthProvider + hooks
-├── types/                    # Interfaces TypeScript (indicators.ts, formulator.ts)
-├── pages/                    # Login, Home, Trails, Opportunities, Community
-├── utils/                    # segmentLabels, statusStyles, risks, etc.
-└── index.css                 # Design tokens (integrados ao Tailwind config)
+src/
+├── components/        # Componentes por grupo do Figma
+│   ├── agenda/        # Cards de agenda, barras de indicador com semáforo
+│   ├── map/           # ParaibaOutlineMap (SVG do GeoJSON)
+│   ├── formulator/    # Fluxo de 10 etapas + revisão
+│   ├── economics/     # Panorama socioeconômico
+│   ├── risks/         # Riscos estratégicos (extração automática de alertas)
+│   └── ...
+├── data/              # Conteúdo editorial + client da API
+├── hooks/             # MunicipalityProvider, FormulatorProvider, AuthProvider
+└── types/             # Contratos TypeScript (espelhados pela API)
 
-server/                       # API de leitura (Node/Fastify) — ver server/README.md
-└── src/                      # routes, repo, services, status (threshold), db, config
-
-database/                     # ETL lake -> OPP: seeds MongoDB, geradores Python,
-                              #   MAPEAMENTO_BASE_DOS_DADOS.md, RUNBOOK_ETL.md
+server/src/            # Rotas, repositório Mongo, cálculo de status (threshold)
+database/
+├── scripts/           # Geradores Python (lake → seeds)
+├── seed/              # Seeds MongoDB por indicador
+└── data/              # Dados intermediários (fontes públicas agregadas)
 ```
 
-## Design
+## Licença
 
-Tokens extraidos das Figma Variables (Colors, Typography, Spacing). Componentes seguem fielmente o layout do Figma com referencia ao Node ID de cada elemento.
-
-## Deploy (producao)
-
-A plataforma roda no servidor Sebrae **<host-da-app>** (`<servidor-app>`) e le o MongoDB
-`DadosOPP` em **<host-do-banco>**. Dois artefatos, um so deploy:
-
-- **Frontend** — build estatico (`vite build` -> `dist/`) copiado para `/var/www/sebrae_opp/dist`, servido pelo Nginx.
-- **API de leitura** (`server/`) — processo Node/Fastify na porta `3000`, gerenciado pelo systemd (`opp-api.service`). Le o banco; o Nginx faz proxy de `/api/*` para ela. Ver [`server/README.md`](server/README.md).
-
-```
-Navegador -> Nginx (:80) --+-- /            -> /var/www/sebrae_opp/dist  (SPA)
-                           +-- /api/*        -> 127.0.0.1:3000 (opp-api)  -> MongoDB DadosOPP
-```
-
-### Primeiro deploy (uma vez)
-
-1. **Nginx** — `server` block em `/etc/nginx/sites-enabled/sebrae_opp`: `root /var/www/sebrae_opp/dist`, SPA fallback (`try_files $uri $uri/ /index.html`) e proxy `location /api/ { proxy_pass http://127.0.0.1:3000; }` (**sem barra no final** — preserva o `/api` no path).
-2. **API via systemd** — unit `/etc/systemd/system/opp-api.service` executando `node dist/index.js` com `WorkingDirectory` = `server/` (o `dotenv` le o `server/.env`, que precisa do `MONGO_URI`). Depois: `sudo systemctl enable --now opp-api`.
-
-### Atualizar (a cada release)
-
-```bash
-# no servidor, dentro de ~/sebrae_opp
-git pull
-
-# frontend
-npm install --legacy-peer-deps && npm run build
-sudo rsync -a --delete ~/sebrae_opp/dist/ /var/www/sebrae_opp/dist/
-
-# API
-cd server && npm install && npm run build
-sudo systemctl restart opp-api
-```
-
-### Quando reconstruir o que
-
-| Mudou... | Frontend (build + rsync) | API (build + restart) |
-|---|---|---|
-| Codigo React/CSS (`src/`) | sim | -- |
-| Codigo da API (`server/src/`) | -- | sim |
-| **So dados no banco** (seeds/migracao do ETL) | -- | **so restart** (o catalogo e cacheado em memoria) |
-
-> **Importante:** a API cacheia o catalogo em memoria no boot. Qualquer alteracao no banco
-> (novos seeds, migracao de id, ajuste de `threshold`/labels) so aparece no frontend **apos
-> `sudo systemctl restart opp-api`**.
-
-### Verificacao pos-deploy
-
-```bash
-curl -s http://localhost/api/health          # {"ok":true,"db":"up"}
-curl -s http://localhost/api/municipalities  # array dos 223 municipios da PB
-```
-
-## Licenca
-
-Uso interno Sebrae Paraiba.
+Código publicado apenas para fins de demonstração de portfólio. Todos os direitos reservados — Sebrae Paraíba.

@@ -1,5 +1,8 @@
 # OPP API
 
+> **Nota (snapshot público):** este repositório é um snapshot sanitizado para fins de portfólio. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.); o runbook operacional do ETL não faz parte do snapshot.
+
+
 API de leitura da Plataforma OPP sobre o MongoDB `DadosOPP`. Processo Node
 (Fastify) que roda na máquina da app (`<host-da-app>`) e lê o banco (`<host-do-banco>`).
 O Nginx serve o build estático do frontend **e** faz proxy de `/api/*` para cá.

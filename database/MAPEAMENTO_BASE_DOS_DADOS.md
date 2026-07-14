@@ -1,5 +1,8 @@
 # Mapeamento de Fontes de Dados — Plataforma OPP
 
+> **Nota (snapshot público):** este repositório é um snapshot sanitizado para fins de portfólio. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.); o runbook operacional do ETL não faz parte do snapshot.
+
+
 Mapeamento dos 35 indicadores da OPP (catálogo em [indicators/catalog.ts](indicators/catalog.ts))
 e das demais fontes disponíveis. A coluna **Fonte** da §1 usa as etiquetas abaixo.
 

@@ -1,5 +1,8 @@
 # Changelog
 
+> **Nota (snapshot público):** este repositório é um snapshot sanitizado para fins de portfólio. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.); o runbook operacional do ETL não faz parte do snapshot.
+
+
 Todas as alterações relevantes do projeto são documentadas neste arquivo.
 
 ## [Não lançado]
