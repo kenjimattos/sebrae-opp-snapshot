@@ -2,6 +2,8 @@
 
 > **📸 Snapshot para portfólio.** Este repositório é um **snapshot estático e sanitizado** de um projeto real desenvolvido para o Sebrae Paraíba, publicado exclusivamente para fins de portfólio. Não é o repositório de desenvolvimento (que é privado) e não recebe atualizações. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.). Os dados incluídos são um recorte estático de indicadores públicos agregados por município.
 
+**🔗 Demo ao vivo:** https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/
+
 Plataforma de dados municipais para o Sebrae Paraíba. Consolida indicadores socioeconômicos, agendas prioritárias, riscos estratégicos e oportunidades de recursos em uma interface unificada para gestores públicos — a **Jornada do Município Empreendedor**, cobrindo os **223 municípios da Paraíba**.
 
 ## O que tem aqui
@@ -31,7 +33,7 @@ React 19 · TypeScript · Vite · Tailwind CSS v3 + design tokens · React Route
 
 ## Rodando
 
-**Como demo (sem banco)** — importe o repositório no Vercel: o build estático usa o recorte da API em `public/api-snapshot/` via rewrites (`/api/*` → JSON estático). É a forma recomendada de ver o projeto funcionando.
+**Como demo (sem banco)** — a [demo ao vivo](https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/) roda exatamente este repositório no Vercel: o build estático usa o recorte da API em `public/api-snapshot/` via rewrites (`/api/*` → JSON estático). Importar o repositório no Vercel reproduz o mesmo resultado.
 
 **Desenvolvimento completo** exigiria um MongoDB populado pelos seeds de `database/` e a API de `server/` rodando — infraestrutura que não acompanha este snapshot:
 
