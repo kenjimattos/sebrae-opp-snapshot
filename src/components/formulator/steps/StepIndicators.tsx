@@ -5,6 +5,8 @@ import { Sparkles } from '@/components/icons'
 import { useFormulator } from '@/hooks/useFormulator'
 import { useMunicipality } from '@/hooks/useMunicipality'
 import { useAiTask } from '@/hooks/useAiTask'
+import { useConfirm } from '@/hooks/useConfirm'
+import { confirmReplaceList, filledCount } from '@/utils/formulatorOverwrite'
 import type { IndicatorsFormData } from '@/types/formulator'
 
 type GroupKey = keyof IndicatorsFormData
@@ -53,6 +55,7 @@ export default function StepIndicators() {
   const [errorGroup, setErrorGroup] = useState<GroupKey | null>(null)
   const [undoableGroups, setUndoableGroups] = useState<Partial<Record<GroupKey, boolean>>>({})
   const previous = useRef<Partial<Record<GroupKey, string[]>>>({})
+  const confirm = useConfirm()
 
   const filledObjectives = objectives.filter((o) => o.trim() !== '')
 
@@ -65,6 +68,9 @@ export default function StepIndicators() {
 
   async function generateGroup(group: GroupKey) {
     if (ai.status === 'loading' || filledObjectives.length === 0) return
+    // Substitui o grupo inteiro; só pergunta se já houver indicador digitado.
+    const preenchidos = filledCount(data[group])
+    if (preenchidos > 0 && !(await confirm(confirmReplaceList(preenchidos, 'item', 'itens')))) return
     previous.current[group] = data[group]
     setUndoableGroups((u) => ({ ...u, [group]: false }))
     setErrorGroup(null)

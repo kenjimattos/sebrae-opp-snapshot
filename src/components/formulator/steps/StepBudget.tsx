@@ -1,35 +1,55 @@
 import { useMemo } from 'react'
 import TextInput from '@/components/ui/TextInput'
 import Button from '@/components/ui/buttons/Button'
+import AiActionBar from '@/components/formulator/AiActionBar'
 import { Plus } from '@/components/icons'
 import { useFormulator } from '@/hooks/useFormulator'
-
-function parseValue(valor: string): number {
-  // Aceita "1.000,50", "1000.50", "1000,50", "R$ 1.000,50" etc.
-  const cleaned = valor
-    .replace(/[^\d,.-]/g, '')
-    .replace(/\./g, '')
-    .replace(',', '.')
-  const num = parseFloat(cleaned)
-  return Number.isFinite(num) ? num : 0
-}
-
-function formatBRL(value: number): string {
-  return value.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-  })
-}
+import { useMunicipality } from '@/hooks/useMunicipality'
+import { useAiTask } from '@/hooks/useAiTask'
+import { useConfirm } from '@/hooks/useConfirm'
+import { useUndoable } from '@/hooks/useUndoable'
+import { budgetTotal, formatBRL } from '@/utils/currency'
+import { confirmReplaceBudget, filledBudgetCount } from '@/utils/formulatorOverwrite'
+import type { BudgetItem } from '@/types/formulator'
 
 export default function StepBudget() {
   const { state, setSlice } = useFormulator()
+  const { municipality } = useMunicipality()
   const data = state.budget
 
-  const total = useMemo(
-    () => data.items.reduce((acc: number, r: { label: string; value: string }) => acc + parseValue(r.value), 0),
-    [data.items],
-  )
+  // Sugestão de rubricas (IA): só os nomes, derivados das atividades do plano
+  // de ação — valores em R$ ficam em branco para o gestor preencher.
+  const ai = useAiTask()
+  const undoableItems = useUndoable<BudgetItem[]>()
+  const confirm = useConfirm()
+
+  async function suggestItems() {
+    if (ai.status === 'loading' || state.actionPlan.activities.trim() === '') return
+    // Troca a lista inteira E zera os valores em R$ — a perda aqui é dupla.
+    const preenchidas = filledBudgetCount(data.items)
+    if (preenchidas > 0 && !(await confirm(confirmReplaceBudget(preenchidas)))) return
+    undoableItems.capture(data.items)
+    const result = await ai.run({
+      task: 'suggest-budget-items',
+      activities: state.actionPlan.activities,
+      municipality: { id: municipality.id, name: municipality.name },
+      context: {
+        objetivoGeral: state.objectives.general,
+        duracao: state.identification.duration,
+      },
+    })
+    if (result?.items && result.items.length > 0) {
+      setSlice('budget', { items: result.items.map((label) => ({ label, value: '' })) })
+      undoableItems.arm()
+    }
+  }
+
+  function undoItems() {
+    const previous = undoableItems.undo()
+    if (previous) setSlice('budget', { items: previous })
+  }
+
+  const total = useMemo(() => budgetTotal(data.items), [data.items])
 
   const setItem = (idx: number, patch: Partial<{ label: string; value: string }>) => {
     const items = data.items.map((r: { label: string; value: string }, i: number) => (i === idx ? { ...r, ...patch } : r))
@@ -65,7 +85,14 @@ export default function StepBudget() {
             </div>
           ))}
         </div>
-        <div className="mt-xs">
+        <AiActionBar
+          label="Sugerir rubricas com IA"
+          loading={ai.status === 'loading'}
+          disabled={ai.status === 'loading' || state.actionPlan.activities.trim() === ''}
+          onGenerate={() => void suggestItems()}
+          onUndo={undoableItems.canUndo ? undoItems : undefined}
+          errorMessage={ai.status === 'error' ? ai.errorMessage : null}
+        >
           <Button
             label="Adicionar detalhamento"
             variant="ghost"
@@ -74,7 +101,7 @@ export default function StepBudget() {
             iconPosition="left"
             onClick={addItem}
           />
-        </div>
+        </AiActionBar>
       </div>
 
       <div className="flex flex-col gap-xs">
