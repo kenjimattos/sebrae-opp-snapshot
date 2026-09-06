@@ -29,7 +29,7 @@ município, que o próprio ESTBAN consolida no verbete **160** ("Operações de 
   - SEM threshold: saldo absoluto (R$), sem faixa oficial — o BCB não classifica.
 
 == Schema do dump ESTBAN (confirmado jun/2026 via doc real 202011) ==
-Base **ESTBAN** (Mongo <host-do-lake>, authSource admin, <usuario-lake>). 1 coleção por mês
+Base **ESTBAN** (Mongo <host-do-lake>:27018, authSource admin, <usuario-lake>). 1 coleção por mês
 "AAAAMM". Cada doc é uma linha (instituição × município):
   DATA_BASE(int AAAAMM) · UF(str "PB") · CODMUN(int, cód. BACEN) · CODMUN_IBGE(int, IBGE 7-díg)
   · MUNICIPIO(str) · CNPJ(int) · NOME_INSTITUICAO · AGENCIA · VERBETE_<código>_<descrição>(int R$)
@@ -553,8 +553,8 @@ def main():
     ap.add_argument("--opp-pass", default=env("OPP_MONGO_PASS", ""))
     ap.add_argument("--opp-auth-db", default=env("OPP_AUTH_DB", ""))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SEED_DIR.mkdir(parents=True, exist_ok=True)

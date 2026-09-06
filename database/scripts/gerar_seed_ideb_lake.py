@@ -35,7 +35,7 @@ IDEB). Ajuste com --rede / IDEB_REDE se o dump usar outro rótulo (rode --inspec
 os valores de REDE e SERIE disponíveis).
 
 == Schema do dump (confirmado jun/2026 via docs de exemplo) ==
-Base **IDEB** (Mongo <host-do-lake>, authSource admin, <usuario-lake>). Cada doc é uma
+Base **IDEB** (Mongo <host-do-lake>:27018, authSource admin, <usuario-lake>). Cada doc é uma
 linha (município × série × rede):
   COD_MUN(str, IBGE 7-díg) · MUNICIPIO(str) · UF(str "PB") · REDE(str "PUBLICA") ·
   SERIE(str "ANOS_INICIAIS_FUNDAMENTAL"|"ANOS_FINAIS_FUNDAMENTAL") ·
@@ -521,8 +521,8 @@ def main():
     ap.add_argument("--opp-pass", default=env("OPP_MONGO_PASS", ""))
     ap.add_argument("--opp-auth-db", default=env("OPP_AUTH_DB", ""))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SEED_DIR.mkdir(parents=True, exist_ok=True)

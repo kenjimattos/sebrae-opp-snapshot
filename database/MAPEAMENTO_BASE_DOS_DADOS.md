@@ -1,8 +1,5 @@
 # Mapeamento de Fontes de Dados — Plataforma OPP
 
-> **Nota (snapshot público):** este repositório é um snapshot sanitizado para fins de portfólio. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.); o runbook operacional do ETL não faz parte do snapshot.
-
-
 Mapeamento dos 35 indicadores da OPP (catálogo em [indicators/catalog.ts](indicators/catalog.ts))
 e das demais fontes disponíveis. A coluna **Fonte** da §1 usa as etiquetas abaixo.
 
@@ -739,7 +736,7 @@ de CNAE. Calibração: `--inspect` (PNCP), `--inspect-rfb` (porte/MEI), `--inspe
 ## 13. Data lake do Sebrae (RAIS/CAGED, acesso direto)
 
 Além do basedosdados/BigQuery, a OPP tem **acesso direto ao data lake do Sebrae** — um
-Mongo com os microdados brutos da RAIS e do CAGED (`<host-do-lake>`, uma base por fonte:
+Mongo com os microdados brutos da RAIS e do CAGED (`<host-do-lake>:27018`, uma base por fonte:
 `RAIS`, `CAGED…`, **`PNCP`**, **`RECEITA_FEDERAL`**, **`REDESIM`**). É mais **atual e granular**
 que o basedosdados (que atrasa 1–2 anos) e a fonte natural para indicadores de emprego formal.
 **O lake também ingere o PNCP e a Receita Federal** (coleções por ano: `CONTRATOS_<ano>`,
@@ -751,7 +748,7 @@ produtiva (abertos/ativas/extintos, ver §14). **E ingere a Redesim** (base `RED
 `MUNICIPIO`/`ANO`/`MES`/`UF`) → fonte de `tempo-abertura`/`tempo-viabilidade` (§9.1).
 
 **Convenção de conexão do lake** (geradores `*_lake.py`, commits c2413af/4ec16d5/2e504f8):
-host fixo `<host-do-lake>`, authSource `admin`, credencial `<usuário>:<senha> (via .env)`
+host fixo `<host-do-lake>:27018`, authSource `admin`, credencial `<usuario-lake>:<usuario-lake>`
 (`<usuario-lake>`, `<usuario-lake>`, `<usuario-lake>`, `<usuario-lake>`) — todos são **default no
 script**, derivados após o parse, então a rodada mínima é só `--write-mongo`. Os scripts
 **carregam `database/.env` sozinhos** (load_dotenv; dispensa `source`); o `.env` só precisa

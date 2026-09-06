@@ -49,7 +49,7 @@ de **inovação**.
 
     python3 ..._inovacao_lake.py --offline   # regenera o seed do snapshot (sem tocar no lake)
 
-Requer: pip install 'pymongo<4'. Credenciais do lake: padrão <usuário>:<senha> (via .env).
+Requer: pip install 'pymongo<4'. Credenciais do lake: padrão <usuario-lake>:<usuario-lake>.
 """
 import argparse
 import json
@@ -678,10 +678,10 @@ def main():
     ap.add_argument("--opp-pass", default=env("OPP_MONGO_PASS", ""))
     ap.add_argument("--opp-auth-db", default=env("OPP_AUTH_DB", ""))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
-    args.rfb_user = args.rfb_user or ""
-    args.rfb_pass = args.rfb_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
+    args.rfb_user = args.rfb_user or ("usr_" + args.rfb_db)
+    args.rfb_pass = args.rfb_pass or ("usr_" + args.rfb_db)
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SEED_DIR.mkdir(parents=True, exist_ok=True)

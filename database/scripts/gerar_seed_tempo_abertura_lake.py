@@ -10,7 +10,7 @@ muda a ORIGEM. Caminho autocontido (fluxo lake->OPP, igual à escolaridade): a a
 roda na origem e NÃO cruza fonte externa em runtime (sem cross-check via API).
 
 ------------------------------------------------------------------------------
-FONTE: Mongo do lake do Sebrae (<host-do-lake>, usuário `<usuario-lake>`, authSource
+FONTE: Mongo do lake do Sebrae (<host-do-lake>:27018, usuário `<usuario-lake>`, authSource
 `admin`), base `REDESIM`, uma coleção por ano: `BRASIL_<ano>` (1 doc = 1 solicitação
 de abertura — o MESMO microdado que vira o XLSX da API). Confirmado via
 inspecionar_redesim_lake.py (jun/2026):
@@ -74,7 +74,7 @@ MUNICIPIOS_SEED = SEED_DIR / "municipios.mongodb.js"
 SNAPSHOT = DATA_DIR / "redesim_tempos_lake_pb.json"
 
 # Lake do Sebrae: mesmo IP para conexão direta (da <host-do-banco>) e para o remote_bind
-# do túnel SSH. Cada base tem credencial no padrão <usuário>:<senha> (via .env) (authSource admin).
+# do túnel SSH. Cada base tem credencial no padrão <usuario-lake>:<usuario-lake> (authSource admin).
 LAKE_HOST = "<host-do-lake>"
 
 
@@ -493,7 +493,7 @@ def main():
     ap.add_argument("--offline", action="store_true", help="usa o snapshot salvo, sem consultar o lake")
     ap.add_argument("--inspect", action="store_true", help="conecta e mostra 1 doc + cobertura; não gera seed")
     ap.add_argument("--collection", default="BRASIL_2025", help="coleção do ano (default: BRASIL_2025)")
-    # ORIGEM = lake REDESIM (<host-do-lake>, <usuário>:<senha>, authSource admin).
+    # ORIGEM = lake REDESIM (<host-do-lake>:27018, <usuario-lake>:<usuario-lake>, authSource admin).
     # user/pass derivam de <usuario-lake> abaixo (após o parse) — não precisa passar nada.
     ap.add_argument("--mongo-host", default=env("REDESIM_MONGO_HOST", LAKE_HOST))
     ap.add_argument("--mongo-port", type=int, default=int(env("REDESIM_MONGO_PORT", "27018")))
@@ -516,10 +516,10 @@ def main():
     ap.add_argument("--ssh-key", default=env("REDESIM_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("REDESIM_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) (cada base tem a sua). Só passe
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> (cada base tem a sua). Só passe
     # --mongo-user/--mongo-pass (ou REDESIM_MONGO_USER/PASS no .env) para sobrescrever.
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     if args.offline:
         if not SNAPSHOT.exists():

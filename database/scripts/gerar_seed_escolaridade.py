@@ -123,7 +123,7 @@ MUNICIPIOS_SEED = SEED_DIR / "municipios.mongodb.js"
 SNAPSHOT = DATA_DIR / "escolaridade_pb_2024.json"
 
 # Lake do Sebrae: mesmo IP p/ conexão direta (da <host-do-banco>) e p/ remote_bind do túnel.
-# Cada base tem credencial <usuário>:<senha> (via .env) (authSource admin) — derivada no main().
+# Cada base tem credencial <usuario-lake>:<usuario-lake> (authSource admin) — derivada no main().
 LAKE_HOST = "<host-do-lake>"
 
 ANO = "2024"  # última RAIS consolidada; muda junto com --collection (ex.: 2024_VINC)
@@ -472,7 +472,7 @@ def main() -> None:
     ap.add_argument("--query-only", action="store_true", help="só consulta o Sebrae e salva o snapshot; NÃO gera seed (p/ rodar na máquina que tem acesso ao Sebrae, sem o repo)")
     ap.add_argument("--snapshot", default=str(SNAPSHOT), help="caminho do snapshot JSON (default: database/data/escolaridade_pb.json)")
     ap.add_argument("--collection", default="2024_VINC", help="coleção de vínculos do ano (ex.: 2024_VINC)")
-    # conexão Mongo ORIGEM = lake Sebrae (<host-do-lake>; cada base é um usuário, ex. <usuário>:<senha>)
+    # conexão Mongo ORIGEM = lake Sebrae (<host-do-lake>; cada base é um usuário, ex. <usuario-lake>:<usuario-lake>)
     ap.add_argument("--mongo-host", default=env("RAIS_MONGO_HOST", LAKE_HOST))
     ap.add_argument("--mongo-port", type=int, default=int(env("RAIS_MONGO_PORT", "27018")))  # lake Sebrae em 27018
     ap.add_argument("--mongo-db", default=env("RAIS_MONGO_DB", "RAIS"))
@@ -494,10 +494,10 @@ def main() -> None:
     ap.add_argument("--ssh-key", default=env("RAIS_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("RAIS_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) (cada base tem a sua). Só passe
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> (cada base tem a sua). Só passe
     # --mongo-user/--mongo-pass (ou RAIS_MONGO_USER/PASS no .env) para sobrescrever.
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     snapshot = Path(args.snapshot)
 

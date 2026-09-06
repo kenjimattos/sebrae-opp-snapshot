@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inventaria a base **IBGE** do data lake do Sebrae (Mongo `<host-do-lake>`,
+Inventaria a base **IBGE** do data lake do Sebrae (Mongo `<host-do-lake>:27018`,
 usuário `<usuario-lake>`, authSource `admin`) para descobrir QUAIS indicadores do
 mapeamento (MAPEAMENTO_BASE_DOS_DADOS.md) que HOJE **não** vêm do lake já estão
 disponíveis ali — SEM despejar doc por doc (a base tem centenas de coleções).
@@ -213,8 +213,8 @@ def main():
     ap.add_argument("--ssh-key", default=env("IBGE_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("IBGE_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""  # IBGE -> <usuario-lake>
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or "usr_" + args.mongo_db  # IBGE -> <usuario-lake>
+    args.mongo_pass = args.mongo_pass or "usr_" + args.mongo_db
 
     client, tunnel = conectar(args)
     try:

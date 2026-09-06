@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inspeciona a base **REDESIM** do data lake do Sebrae (Mongo `<host-do-lake>`,
+Inspeciona a base **REDESIM** do data lake do Sebrae (Mongo `<host-do-lake>:27018`,
 usuário `<usuario-lake>`, authSource `admin`) para verificar se os microdados de
 solicitações de abertura (coleções `BRASIL_<ano>`) trazem TUDO o que os geradores
 de indicadores da Redesim hoje extraem da API pública (XLSX).
@@ -131,9 +131,9 @@ def main():
     ap.add_argument("--ssh-key", default=env("REDESIM_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("REDESIM_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) (cada base tem a sua).
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> (cada base tem a sua).
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     client, tunnel = conectar(args)
     try:

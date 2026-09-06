@@ -29,13 +29,13 @@ CALIBRAÇÃO (1ª vez — recomendada, igual à RAIS):
 
     # PNCP: confere campos + esfera + qual VALOR_* usar + distribuição de ANO_CONTRATO
     python3 ..._lake.py --inspect \
-      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass '<senha>' \
+      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass <usuario-lake> \
       --mongo-db PNCP --collection CONTRATOS_2025
 
     # Receita Federal: confere RF_EMPRESAS_<ano> (porte) e RF_SIMPLES_<ano> (MEI)
     python3 ..._lake.py --inspect-rfb \
       --mongo-host <host-do-lake> \
-      --rfb-user <usuario-lake> --rfb-pass '<senha>' \
+      --rfb-user <usuario-lake> --rfb-pass <usuario-lake> \
       --rfb-db RECEITA_FEDERAL --rfb-collection RF_EMPRESAS_2025 \
       --rfb-simples-collection RF_SIMPLES_2025
 
@@ -50,9 +50,9 @@ ok p/ ~1M); RF_EMPRESAS ~65,7M e RF_SIMPLES ~46,2M (lookup via $in pelo idx_cnpj
 RODAR (uma rodada, na <host-do-banco>):
 
     python3 ..._lake.py --ano 2025 \
-      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass '<senha>' \
+      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass <usuario-lake> \
       --mongo-db PNCP --collection CONTRATOS_2025 \
-      --rfb-user <usuario-lake> --rfb-pass '<senha>' \
+      --rfb-user <usuario-lake> --rfb-pass <usuario-lake> \
       --rfb-db RECEITA_FEDERAL --rfb-collection RF_EMPRESAS_2025 \
       --rfb-simples-collection RF_SIMPLES_2025 \
       --write-mongo --opp-user <usuario-opp> --opp-pass 'SENHA'
@@ -120,7 +120,7 @@ MUNICIPIOS_SEED = SEED_DIR / "municipios.mongodb.js"
 SNAPSHOT = DATA_DIR / "mpe_compras_publicas_lake_pb.json"
 
 # Lake do Sebrae: mesmo IP p/ conexão direta (da <host-do-banco>) e p/ remote_bind do túnel.
-# Cada base tem credencial <usuário>:<senha> (via .env) (authSource admin) — derivadas no main()
+# Cada base tem credencial <usuario-lake>:<usuario-lake> (authSource admin) — derivadas no main()
 # (PNCP -> <usuario-lake>, RECEITA_FEDERAL -> <usuario-lake>).
 LAKE_HOST = "<host-do-lake>"
 SEED_FILE = SEED_DIR / "indicador-mpe-compras-publicas.mongodb.js"
@@ -744,11 +744,11 @@ def main() -> None:
     ap.add_argument("--opp-pass", default=env("OPP_MONGO_PASS", ""))
     ap.add_argument("--opp-auth-db", default=env("OPP_AUTH_DB", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) — PNCP e RFB são bases distintas.
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
-    args.rfb_user = args.rfb_user or ""
-    args.rfb_pass = args.rfb_pass or ""
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> — PNCP e RFB são bases distintas.
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
+    args.rfb_user = args.rfb_user or ("usr_" + args.rfb_db)
+    args.rfb_pass = args.rfb_pass or ("usr_" + args.rfb_db)
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SEED_DIR.mkdir(parents=True, exist_ok=True)

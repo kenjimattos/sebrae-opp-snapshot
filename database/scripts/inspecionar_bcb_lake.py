@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Explora a base **BCB** do data lake do Sebrae (Mongo `<host-do-lake>`,
+Explora a base **BCB** do data lake do Sebrae (Mongo `<host-do-lake>:27018`,
 usuário `<usuario-lake>`, authSource `admin`) para descobrir QUAIS dados dá pra extrair
 dali — SEM saber de antemão o schema das coleções (diferente do IBGE/SIDRA, aqui
 cada coleção pode ter um formato próprio: séries SGS, ESTBAN, PIX, crédito, etc.).
@@ -235,8 +235,8 @@ def main():
     ap.add_argument("--ssh-key", default=env("BCB_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("BCB_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""  # BCB -> <usuario-lake>
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or "usr_" + args.mongo_db  # BCB -> <usuario-lake>
+    args.mongo_pass = args.mongo_pass or "usr_" + args.mongo_db
 
     client, tunnel = conectar(args)
     try:

@@ -8,11 +8,11 @@ import { createPortal } from 'react-dom'
 import type { AiChatMessage } from '@/types/ai'
 import { useMunicipality } from '@/hooks/useMunicipality'
 import { useAiTask } from '@/hooks/useAiTask'
-import { useTypewriter } from '@/hooks/useTypewriter'
+import { useDismiss } from '@/hooks/useDismiss'
 import TextInput from '@/components/ui/TextInput'
 import Button from '@/components/ui/buttons/Button'
 import IconButton from '@/components/ui/buttons/IconButton'
-import MarkdownLite from '@/components/ui/MarkdownLite'
+import AiMessage from '@/components/ui/AiMessage'
 import { Sparkles, X, iconSizes } from '@/components/icons'
 import { statusLabels } from '@/data/indicators/status-labels'
 import {
@@ -56,13 +56,10 @@ export default function ChatPanel({ onClose }: ChatPanelProps) {
       .join('; ')
   }, [municipality.data])
 
-  useEffect(() => {
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+  // Sem clique-fora: o painel convive com a página atrás dele (o gestor
+  // consulta os cards enquanto pergunta), então clicar no conteúdo não deve
+  // fechar o chat e perder a thread.
+  useDismiss({ active: true, onDismiss: onClose })
 
   useEffect(() => {
     const el = threadRef.current
@@ -114,12 +111,12 @@ export default function ChatPanel({ onClose }: ChatPanelProps) {
   return createPortal(
     <aside
       aria-label={chatTitle}
-      className="fixed right-0 top-0 h-full w-[400px] z-50 flex flex-col bg-[var(--semantic-surface-primary)] border-l border-[var(--semantic-surface-secondary)] shadow-lg"
+      className="fixed right-0 top-0 h-full w-[400px] z-50 flex flex-col bg-surface border-l border-surface-secondary shadow-lg"
     >
       {/* Header */}
-      <div className="flex-between gap-md p-md border-b border-[var(--semantic-surface-secondary)]">
+      <div className="flex-between gap-md p-md border-b border-surface-secondary">
         <div className="flex items-center gap-xs">
-          <Sparkles size={iconSizes.md} className="text-[color:var(--semantic-accent)]" aria-hidden />
+          <Sparkles size={iconSizes.md} className="text-accent" aria-hidden />
           <div className="flex flex-col">
             <p className="typo-body-bold">{chatTitle}</p>
             <p className="typo-body-sm text-inactive">{municipality.name}</p>
@@ -166,7 +163,7 @@ export default function ChatPanel({ onClose }: ChatPanelProps) {
 
       {/* Input */}
       <form
-        className="flex items-center gap-xs p-md border-t border-[var(--semantic-surface-secondary)]"
+        className="flex items-center gap-xs p-md border-t border-surface-secondary"
         onSubmit={(e) => {
           e.preventDefault()
           void send(draft)
@@ -195,9 +192,6 @@ function ChatBubble({
   isTyping: boolean
   onDone: () => void
 }) {
-  const { displayed } = useTypewriter({ text: entry.content, enabled: isTyping, onDone })
-  const shown = isTyping ? displayed : entry.content
-
   if (entry.role === 'user') {
     return (
       <div className="self-end max-w-[85%] card-surface-secondary px-sm py-xs">
@@ -207,19 +201,12 @@ function ChatBubble({
   }
 
   return (
-    <div className="flex items-start gap-xs max-w-[95%]">
-      <Sparkles
-        size={iconSizes.sm}
-        className="text-[color:var(--semantic-accent)] shrink-0 mt-[2px]"
-        aria-hidden
-      />
-      <div
-        className={`typo-body ${entry.isError ? 'text-inactive' : ''}`}
-        aria-live={isTyping ? 'polite' : undefined}
-      >
-        <MarkdownLite text={shown} />
-        {isTyping && <span className="typewriter-caret" aria-hidden />}
-      </div>
-    </div>
+    <AiMessage
+      text={entry.content}
+      isTyping={isTyping}
+      onDone={onDone}
+      isError={entry.isError}
+      className="max-w-[95%]"
+    />
   )
 }

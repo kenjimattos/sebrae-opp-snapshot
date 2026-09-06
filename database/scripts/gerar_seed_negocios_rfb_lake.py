@@ -27,7 +27,7 @@ antigo `gerar_seed_crescimento_mpe.py` fica no repo como referência/fallback (O
 
 ------------------------------------------------------------------------------
 FONTE: 100% data lake do Sebrae, AUTOCONTIDO (sem internet, sem BigQuery, sem API).
-  base RECEITA_FEDERAL (<host-do-lake>), coleções por ano:
+  base RECEITA_FEDERAL (<host-do-lake>:27018), coleções por ano:
     - RF_ESTABELECIMENTOS_<ano>  (driver)  -> município (IBGE), SITUACAO_CADASTRAL,
                                               DATA_DE_INICIO_ATIVIDADE, DATA_SITUACAO_CADASTRAL,
                                               CNPJ_BASICO
@@ -84,7 +84,7 @@ GOTCHAS (≠ basedosdados, que já harmoniza). NÃO adivinhe nomes de campo — 
 
 ------------------------------------------------------------------------------
 CALIBRAÇÃO (1ª vez — na <host-do-banco>):
-  As credenciais do lake (<usuário>:<senha>) são DERIVADAS de --rfb-db no
+  As credenciais do lake (<usuario-lake>:<usuario-lake>) são DERIVADAS de --rfb-db no
   próprio script → NÃO precisa passar --rfb-user/--rfb-pass. As do OPP (<usuario-opp>) vêm do .env
   (OPP_MONGO_USER/PASS) ou de --opp-user/--opp-pass.
 
@@ -153,7 +153,7 @@ MUNICIPIOS_SEED = SEED_DIR / "municipios.mongodb.js"
 SNAPSHOT = DATA_DIR / "negocios_rfb_lake_pb.json"
 
 # Lake do Sebrae: mesmo IP p/ conexão direta (da <host-do-banco>) e p/ remote_bind do túnel.
-# Cada base tem credencial <usuário>:<senha> (via .env) (authSource admin) — derivada no main().
+# Cada base tem credencial <usuario-lake>:<usuario-lake> (authSource admin) — derivada no main().
 LAKE_HOST = "<host-do-lake>"
 
 AGENDA = "inclusao"  # agenda default dos indicadores deste gerador; crescimento é "inovacao"
@@ -1070,9 +1070,9 @@ def main():
     ap.add_argument("--opp-pass", default=env("OPP_MONGO_PASS", ""))
     ap.add_argument("--opp-auth-db", default=env("OPP_AUTH_DB", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) (aqui a base é a RFB = RECEITA_FEDERAL).
-    args.rfb_user = args.rfb_user or ""
-    args.rfb_pass = args.rfb_pass or ""
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> (aqui a base é a RFB = RECEITA_FEDERAL).
+    args.rfb_user = args.rfb_user or ("usr_" + args.rfb_db)
+    args.rfb_pass = args.rfb_pass or ("usr_" + args.rfb_db)
 
     ano = args.ano
     prev = ano - 1

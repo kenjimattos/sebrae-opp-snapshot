@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Gera o seed (mongosh) do indicador **Remuneração média** (base econômica) do banco
-da OPP, DIRETO da base RAIS do data lake do Sebrae (Mongo <host-do-lake>).
+da OPP, DIRETO da base RAIS do data lake do Sebrae (Mongo <host-do-lake>:27018).
 
     - remuneracao-media  "Remuneração média (2024)"
 
@@ -493,7 +493,7 @@ def main():
     ap.add_argument("--decimal-comma", action="store_true",
                     default=bool(env("RAIS_REMUN_DECIMAL_COMMA", "")),
                     help="remuneração vem como string com vírgula decimal ('1.234,56')")
-    # conexão Mongo ORIGEM = lake Sebrae (cada base é um usuário, ex. <usuário>:<senha>)
+    # conexão Mongo ORIGEM = lake Sebrae (cada base é um usuário, ex. <usuario-lake>:<usuario-lake>)
     ap.add_argument("--mongo-host", default=env("RAIS_MONGO_HOST", LAKE_HOST))
     ap.add_argument("--mongo-port", type=int, default=int(env("RAIS_MONGO_PORT", "27018")))
     ap.add_argument("--mongo-db", default=env("RAIS_MONGO_DB", "RAIS"))
@@ -515,9 +515,9 @@ def main():
     ap.add_argument("--ssh-key", default=env("RAIS_SSH_KEY", ""))
     ap.add_argument("--ssh-password", default=env("RAIS_SSH_PASSWORD", ""))
     args = ap.parse_args()
-    # credencial do lake: padrão <usuário>:<senha> (via .env) (cada base tem a sua).
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    # credencial do lake: padrão <usuario-lake>:<usuario-lake> (cada base tem a sua).
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
 
     snapshot = Path(args.snapshot)
 

@@ -23,11 +23,11 @@ import {
 } from '@/data/home/economic-base'
 import { Sparkles, iconSizes } from '@/components/icons'
 import Button from '@/components/ui/buttons/Button'
+import AiMessage from '@/components/ui/AiMessage'
 import { statusLabels } from '@/data/indicators/status-labels'
 import { thresholdSegmentLabels } from '@/utils/segmentLabels'
 import { useAiTask } from '@/hooks/useAiTask'
 import { useMunicipality } from '@/hooks/useMunicipality'
-import { useTypewriter } from '@/hooks/useTypewriter'
 
 interface EconomicBaseAnalysisProps {
   className?: string
@@ -96,7 +96,7 @@ export default function EconomicBaseAnalysis({ className = '' }: EconomicBaseAna
       <main className={`flex flex-col glass p-md rounded gap-sm w-full ${className}`}>
         <div className="flex flex-col items-end gap-sm">
           <div className="flex items-center gap-xs w-full">
-            <Sparkles size={iconSizes.sm} className="text-[color:var(--semantic-accent)]" aria-hidden />
+            <Sparkles size={iconSizes.sm} className="text-accent" aria-hidden />
             <h4 className="typo-h4 uppercase">{emptyAnalysisTitle}</h4>
           </div>
           <p className="typo-body-sm w-full">{emptyAnalysisSubtitle}</p>
@@ -154,15 +154,13 @@ function GeneratedState({
   onDone: () => void
   onRegenerar: () => void
 }) {
-  const { displayed } = useTypewriter({ text: analysis, enabled: isTyping, onDone })
-  const shown = isTyping ? displayed : analysis
   const busy = isTyping || loading
 
   return (
     <>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-xs">
-          <Sparkles size={iconSizes.sm} className="text-[color:var(--semantic-accent)]" aria-hidden />
+          <Sparkles size={iconSizes.sm} className="text-accent" aria-hidden />
           <h4 className="typo-body-bold">{analysisLabel}</h4>
           {busy && (
             <span className="typo-body-sm text-inactive" aria-live="polite">
@@ -187,10 +185,7 @@ function GeneratedState({
           {errorMessage}
         </p>
       )}
-      <p className="typo-body" aria-live={isTyping ? 'polite' : undefined}>
-        {shown}
-        {isTyping && <span className="typewriter-caret" aria-hidden />}
-      </p>
+      <AiMessage text={analysis} isTyping={isTyping} onDone={onDone} icon={false} />
     </>
   )
 }

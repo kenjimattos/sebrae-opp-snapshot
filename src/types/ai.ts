@@ -93,6 +93,14 @@ export type AiTaskRequest =
       context?: Record<string, string>
     }
   | {
+      task: 'suggest-budget-items'
+      // Atividades previstas (plano de ação) — base das rubricas sugeridas.
+      // O modelo devolve apenas nomes de rubrica, nunca valores em R$.
+      activities: string
+      municipality: AiMunicipalityContext
+      context?: Record<string, string>
+    }
+  | {
       task: 'economic-analysis'
       municipality: AiMunicipalityContext
       // Os cards exibidos logo acima da análise. Única fonte de números que o
@@ -115,7 +123,8 @@ export type AiTaskRequest =
 export interface AiSuccessResponse {
   text: string
   // Presente apenas nas tasks de lista (generate-specific-objectives,
-  // generate-indicators): resultado já parseado, uma entrada por linha.
+  // generate-indicators, suggest-budget-items): resultado já parseado, uma
+  // entrada por linha.
   items?: string[]
 }
 

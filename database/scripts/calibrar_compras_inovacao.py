@@ -27,7 +27,7 @@ USO:
   # 1) Puxa N objetos reais de contratos MUNICIPAIS da PB do lake e classifica.
   #    Roda na <host-do-banco> (vê o lake). Salva amostra p/ iterar offline.
   python3 calibrar_compras_inovacao.py --inspect --ano 2025 --limit 400 \
-      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass '<senha>' \
+      --mongo-host <host-do-lake> --mongo-user <usuario-lake> --mongo-pass <usuario-lake> \
       --dump amostra_objetos_pb.json
 
   # 2) Itera as palavras SEM o lake: reclassifica a amostra salva e mostra os baldes.
@@ -316,8 +316,8 @@ def main():
     ap.add_argument("--mongo-pass", default="")
     ap.add_argument("--auth-db", default=env("PNCP_AUTH_DB", "admin"))
     args = ap.parse_args()
-    args.mongo_user = args.mongo_user or ""
-    args.mongo_pass = args.mongo_pass or ""
+    args.mongo_user = args.mongo_user or ("usr_" + args.mongo_db)
+    args.mongo_pass = args.mongo_pass or ("usr_" + args.mongo_db)
     args.collection = args.collection or ("CONTRATOS_" + str(args.ano))
 
     if args.score:
