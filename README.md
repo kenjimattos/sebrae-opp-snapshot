@@ -2,7 +2,7 @@
 
 > **📸 Snapshot para portfólio.** Este repositório é um **snapshot estático e sanitizado** de um projeto real desenvolvido para o Sebrae Paraíba, publicado exclusivamente para fins de portfólio. Não é o repositório de desenvolvimento (que é privado) e não recebe atualizações. Hosts, credenciais e detalhes de infraestrutura interna foram substituídos por placeholders (`<host-do-lake>`, `<usuário>`, etc.). Os dados incluídos são um recorte estático de indicadores públicos agregados por município.
 
-**🔗 Demo ao vivo:** https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/
+**🔗 Demo ao vivo:** https://sebrae-h9u611qsr-kenjimattos-1396s-projects.vercel.app/
 
 Plataforma de dados municipais para o Sebrae Paraíba. Consolida indicadores socioeconômicos, agendas prioritárias, riscos estratégicos e oportunidades de recursos em uma interface unificada para gestores públicos — a **Jornada do Município Empreendedor**, cobrindo os **223 municípios da Paraíba**.
 
@@ -26,14 +26,17 @@ Este snapshot inclui também um **recorte estático da API** (`public/api-snapsh
 - **ETL de dados públicos** — geradores Python que leem o data lake (RAIS, Receita Federal, PNCP, Redesim, ESTBAN/BCB, IDEB, IBGE) e emitem seeds MongoDB idempotentes, com inspeção de schema, breakdown por município e marcação de confiabilidade amostral (médias com `n<30` são ocultadas pela API em vez de exibir valores enganosos).
 - **Design system do Figma a tokens** — 16 estilos tipográficos, espaçamentos, cores primitivas/semânticas e raios como CSS variables integradas ao Tailwind; dark mode por tokens.
 - **Formulador de projetos** — fluxo de 10 etapas com rascunho por município em `localStorage` e estado global via Context.
+- **IA em quatro superfícies, um contrato só** — modal do indicador, formulador, análise do Panorama e chat global entram todos por `POST /api/ai`, com o núcleo de prompts compartilhado por três transportes (function Vercel, middleware de dev do Vite, rota Fastify). A chave nunca chega ao bundle: capacidade nova é um literal novo na união de tipos, nunca um endpoint paralelo.
+- **Emendas parlamentares nas duas esferas** — federal atribuído por código IBGE (censo) e estadual inferido do texto livre do objeto. As duas medem cobertura municipal sobre bases diferentes de propósito, e zero no estadual vira `null` em vez de `0`, para a interface distinguir "não recebeu" de "não medimos".
+- **Suíte de 156 testes** — dois projetos Vitest (client/jsdom e server/node) cobrindo a régua do semáforo, a costura da API, a cobertura das emendas, a completude do formulador e os primitivos de UI. As regras testadas foram verificadas por mutação: inverter a regra tem de deixar o teste vermelho.
 
 ## Stack
 
-React 19 · TypeScript · Vite · Tailwind CSS v3 + design tokens · React Router v7 · Node/Fastify · MongoDB · Python (ETL)
+React 19 · TypeScript · Vite · Tailwind CSS v3 + design tokens · React Router v7 · Node/Fastify · MongoDB · Vitest · Python (ETL)
 
 ## Rodando
 
-**Como demo (sem banco)** — a [demo ao vivo](https://sebrae-12i10oz98-kenjimattos-1396s-projects.vercel.app/) roda exatamente este repositório no Vercel: o build estático usa o recorte da API em `public/api-snapshot/` via rewrites (`/api/*` → JSON estático). Importar o repositório no Vercel reproduz o mesmo resultado.
+**Como demo (sem banco)** — a [demo ao vivo](https://sebrae-h9u611qsr-kenjimattos-1396s-projects.vercel.app/) é um deploy de preview gerado pelo Vercel a partir da branch `preview/snapshot` do repositório de trabalho — o mesmo conteúdo deste snapshot, mesma versão. O build estático usa o recorte da API em `public/api-snapshot/` via rewrites (`/api/*` → JSON estático), então a demo funciona sem banco. Importar este repositório no Vercel reproduz o mesmo resultado.
 
 **Desenvolvimento completo** exigiria um MongoDB populado pelos seeds de `database/` e a API de `server/` rodando — infraestrutura que não acompanha este snapshot:
 
